@@ -235,7 +235,6 @@ Begin VB.Form frmGH
       _ExtentY        =   661
       _Version        =   393217
       BorderStyle     =   0
-      Enabled         =   -1  'True
       MultiLine       =   0   'False
       TextRTF         =   $"frmGH.frx":2D178
       BeginProperty Font {0BE35203-8F91-11CE-9DE3-00AA004BB851} 
@@ -290,7 +289,6 @@ Begin VB.Form frmGH
       _ExtentY        =   688
       _Version        =   393217
       BorderStyle     =   0
-      Enabled         =   -1  'True
       MultiLine       =   0   'False
       TextRTF         =   $"frmGH.frx":2D206
    End
@@ -311,6 +309,7 @@ Begin VB.Form frmGH
       _ExtentY        =   2566
       _Version        =   393217
       BorderStyle     =   0
+      Enabled         =   -1  'True
       ReadOnly        =   -1  'True
       ScrollBars      =   2
       DisableNoScroll =   -1  'True
@@ -1674,7 +1673,7 @@ Attribute VB_GlobalNameSpace = False
 Attribute VB_Creatable = False
 Attribute VB_PredeclaredId = True
 Attribute VB_Exposed = False
-'Copyright 2005, 2014 GTAMP.com gtamulti@gmail.com
+'Copyright GTAMP.com gtamulti@gmail.com
 'License: Do whatever you want with this code. No warranty.
 'The integrity of this product cannot be guaranteed for high voltage operation.
 'The Zaibatsu Corporation reserves the right to change the specifications without notice.
@@ -1753,13 +1752,13 @@ Dim tabSelected As Long 'the current tabIRC.SelectedTab.Index (before an event c
 'Command Line '''BenMillard'''
 Private Declare Function CommandLineToArgv Lib "shell32" Alias "CommandLineToArgvW" ( _
     ByVal lpCmdLine As Long, pNumArgs As Integer) As Long
-Private Declare Function GlobalFree Lib "kernel32" ( _
+Private Declare Function GlobalFree Lib "Kernel32" ( _
     ByVal hMem As Long) As Long
-Private Declare Sub CopyMemory Lib "kernel32" Alias "RtlMoveMemory" ( _
+Private Declare Sub CopyMemory Lib "Kernel32" Alias "RtlMoveMemory" ( _
     pTo As Any, uFrom As Any, ByVal lSize As Long)
 Private Declare Function SysAllocString Lib "oleaut32" (ByVal pwsz As Long) As Long
 
-Private Declare Function LocalFree Lib "kernel32" (ByVal hMem As Long) As Long
+Private Declare Function LocalFree Lib "Kernel32" (ByVal hMem As Long) As Long
 Private Declare Function SHGetPathFromIDList Lib "shell32.dll" Alias "SHGetPathFromIDListA" (ByVal pidl As Long, ByVal pszPath As String) As Long
 Private Declare Function SHGetSpecialFolderLocation Lib "shell32.dll" (ByVal hwndOwner As Long, ByVal nFolder As Long, pidl As Any) As Long
 

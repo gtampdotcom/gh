@@ -636,8 +636,11 @@ Attribute VB_GlobalNameSpace = False
 Attribute VB_Creatable = False
 Attribute VB_PredeclaredId = True
 Attribute VB_Exposed = False
-'Copyright 2005, 2014 GTAMP.com gtamulti@gmail.com
+'Copyright GTAMP.com gtamulti@gmail.com
 'License: Do whatever you want with this code. No warranty.
+'The integrity of this product cannot be guaranteed for high voltage operation.
+'The Zaibatsu Corporation reserves the right to change the specifications without notice.
+'Conditions apply.
 
 Option Explicit
 Dim cr As New cRegistry
