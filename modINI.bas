@@ -1,7 +1,7 @@
 Attribute VB_Name = "modINI"
 Option Explicit
 
-Private Declare Function GetPrivateProfileString Lib "kernel32" _
+Private Declare Function GetPrivateProfileString Lib "Kernel32" _
            Alias "GetPrivateProfileStringA" _
                  (ByVal sSectionName As String, _
                   ByVal sKeyName As String, _
@@ -17,7 +17,7 @@ Private Declare Function GetPrivateProfileString Lib "kernel32" _
 '                  ByVal lDefault As Long, _
 '                  ByVal sFileName As String) As Long
 
-Public Declare Function WriteINI Lib "kernel32" _
+Public Declare Function WriteINI Lib "Kernel32" _
            Alias "WritePrivateProfileStringA" _
                  (ByVal sSectionName As String, _
                   ByVal sKeyName As String, _

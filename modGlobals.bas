@@ -9,7 +9,7 @@ Attribute VB_Name = "modGlobalsOMG"
 
 Option Explicit
 
-Public Declare Function GetTickCount Lib "kernel32" () As Long
+Public Declare Function GetTickCount Lib "Kernel32" () As Long
 Public Declare Function ShellExecute Lib "shell32" Alias "ShellExecuteA" ( _
 ByVal hwnd As Long, _
 ByVal lpOperation As String, _
@@ -22,7 +22,7 @@ Public Const vbQuote = """"
 Public Const TXT_COUNTRY_DETECTION_FAILED = "Country detection failed"
 Public Const TXT_GEOSITE = "http://geoloc.daiguo.com"
 Public Const TXT_GTA2EXE = "gta2.exe"       'name of GTA2 executable
-Public Const TXT_GHVER = "1.597"            'GTA2 Game Hunter version number
+Public Const TXT_GHVER = "1.598"            'GTA2 Game Hunter version number
 Public Const TXT_YOUR_GAME_REMOVED = "Your game was removed from the list."
 Public Const TXT_PRIVATE = "Private chat with "
 Public Const gta2ghbot = "gta2ghbot"
@@ -140,6 +140,7 @@ Public blnReadyForJoiners As Boolean 'true when GTA2 is ready for joiners
 Public blnLobby As Boolean
 Public strPreviousMapDesc As String
 Public strServer(5) As String 'stores the IRC server
+Public strPort As String 'stores the IRC port
 Public intServerNum As Integer 'stores the IRC server number
 Public strPassword As String 'stores your IRC password
 Public strErrdesc As String 'stores error desciption

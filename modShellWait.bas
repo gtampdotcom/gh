@@ -32,7 +32,7 @@ End Type
 Private Declare Function CreateProcess Lib "Kernel32" _
    Alias "CreateProcessA" _
    (ByVal lpApplicationName As String, _
-   ByVal lpCommandLine As String, _
+   ByVal lpine As String, _
    lpProcessAttributes As Any, _
    lpThreadAttributes As Any, _
    ByVal bInheritHandles As Long, _

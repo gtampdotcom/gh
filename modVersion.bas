@@ -84,7 +84,7 @@ Public Function DetectGTA2version(Optional strProcessPath As String) As Boolean
      
      If Val(strGTA2version) < 11 Then
         If strProcessPath = vbNullString Then
-            displaychat strDestTab, vbRed, "Update GTA2 to v11.42 or newer. Download here: http://gtamp.com/forum/viewtopic.php?f=4&t=73"
+            displaychat strDestTab, vbRed, "Update GTA2 to the latest version: http://gtamp.com/forum/viewtopic.php?f=4&t=73"
         End If
         
         DetectGTA2version = False
