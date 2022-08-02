@@ -124,11 +124,15 @@ Function CopyURLToFile(ByVal URL As String, Optional ByVal FileName As String) A
     
     Dim sServerName As String, sUsername As String, sPassword As String, sFileName As String
     
+    sServerName = URL
+    
     'remove http:// from URL
     If LCase$(Left$(URL, 7)) = "http://" Then
         sServerName = Right$(URL, Len(URL) - 7)
-    Else
-        sServerName = URL
+    End If
+    
+    If LCase$(Left$(URL, 8)) = "https://" Then
+        sServerName = Right$(URL, Len(URL) - 8)
     End If
     
     'Split URL into servername and filename
@@ -260,7 +264,7 @@ ErrorHandler:
 
     If bln404 = True Then
         If InStr(LCase(URL), "gtamp.com") Then
-            strString = strFile & " isn't on gtamp.com/maps. Check http://gtamp.com/mapscript/maplist/download.php?mmp=" & LCase(Replace(strFile, " ", "%20")) & ".mmp"
+            strString = strFile & " isn't on gtamp.com/maps. Check https://gtamp.com/mapscript/maplist/download.php?mmp=" & LCase(Replace(strFile, " ", "%20")) & ".mmp"
             If lngMaster <> 1 Then
                 Call SendMessage(lngMaster, WM_SETTEXT, 0, ByVal strString)
             Else

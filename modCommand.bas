@@ -551,8 +551,8 @@ Select Case UCase(command$)    'base your actions on the type of command
             
             displaychat strChannel, strGHColor, "Trying to join " & strFrom
         
-            If strIPAddress = strExternalHostName Then
-                displaychat strChannel, strGHColor, "LAN game detected"
+            If strIPAddress = strExternalHostName Or blnchkVPN = True Then
+                displaychat strChannel, strGHColor, "Using blank IP for VPN/LAN game"
                 strIPAddress = vbNullString
             End If
             frmGH.cmdJoin_Click
@@ -564,18 +564,18 @@ Select Case UCase(command$)    'base your actions on the type of command
             displaychat strDestTab, strGHColor, "You need a newer version of Game Hunter to join " & strFrom & "'s game."
             Exit Sub
         Case "NE"
-            displaychat strDestTab, strGHColor, strFrom & " has a different " & TXT_GTA2EXE & ". Latest patch: http://gtamp.com/GTA2/patch"
+            displaychat strDestTab, strGHColor, strFrom & " has a different " & TXT_GTA2EXE & ". Latest patch: https://gtamp.com/GTA2/patch"
             Exit Sub
         Case "NF"
             strMMPfile = LCase(Mid$(strText, 3, 40))
              
             If blnchkAutoDownload = True Then
                 displaychat strChannel, strGHColor, "The host has a different version of " & strMMPfile & ". Attempting to download the latest version:"
-                Call CopyURLToFile("http://gtamp.com/maps/" & strMMPfile, _
+                Call CopyURLToFile("https://gtamp.com/maps/" & strMMPfile, _
                 GetTmpPath & "gta2map.7z")
             Else
                 strMMPfile = Replace(strMMPfile, " ", "%20") & ".mmp"
-                displaychat strChannel, strGHColor, "Map is different. There might be a new version on http://gtamp.com/maps/" & strMMPfile & " or http://gtamp.com/mapscript/maplist/download.php?mmp=" & strMMPfile & ".mmp"
+                displaychat strChannel, strGHColor, "Map is different. There might be a new version on https://gtamp.com/maps/" & strMMPfile & " or https://gtamp.com/mapscript/maplist/download.php?mmp=" & strMMPfile & ".mmp"
             End If
     
             Exit Sub
@@ -916,7 +916,7 @@ PrivateOrPublic:
                     Case "ACTION"
                         displaychat strDestTab, strActionColor, strFrom & Mid$(params$, j, 666)
                     Case "VERSION"
-                        send "NOTICE " & strFrom & " " & Chr$(1) & "VERSION GH " & TXT_GHVER & " GTA2 " & strGTA2version & " OS " & strOSV & " http://GTAMP.com" & Chr$(1)
+                        send "NOTICE " & strFrom & " " & Chr$(1) & "VERSION GH " & TXT_GHVER & " GTA2 " & strGTA2version & " OS " & strOSV & " https://GTAMP.com" & Chr$(1)
                     Case "TIME"
                         send "NOTICE " & strFrom & " " & Chr$(1) & "TIME " & Date$ & " " & Time & Chr$(1)
                     Case "PING"
@@ -1556,21 +1556,21 @@ PrivateOrPublic:
     'Case "461"  'not enough parameters
     Case "473" 'channel is +i 473 invite only
         If strDestTab = strChannel Then
-            displaychat strChannel, vbRed, "You need to update to the latest Game Hunter: http://gtamp.com/gh"
+            displaychat strChannel, vbRed, "You need to update to the latest Game Hunter: https://gtamp.com/gh"
             frmGH.cmdDisconnectClick
         Else
             displaychat strChannel, strGHColor, strText & " is invite only"
         End If
     Case "475"  'channel is +k 475 needs a key
         If strDestTab = strChannel Then
-            displaychat strChannel, vbRed, "You need to update to the latest Game Hunter: http://gtamp.com/gh"
+            displaychat strChannel, vbRed, "You need to update to the latest Game Hunter: https://gtamp.com/gh"
             frmGH.cmdDisconnectClick
         Else
             displaychat strChannel, strGHColor, strText & " needs a key"
         End If
     Case "471"  'channel is +l 471 user limit reached
         If strDestTab = strChannel Then
-            displaychat strChannel, vbRed, "You need to update to the latest Game Hunter: http://gtamp.com/gh"
+            displaychat strChannel, vbRed, "You need to update to the latest Game Hunter: https://gtamp.com/gh"
             frmGH.cmdDisconnectClick
         Else
             displaychat strChannel, strGHColor, strText & " is full"

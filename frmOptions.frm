@@ -37,7 +37,7 @@ Begin VB.Form frmOptions
          Height          =   255
          Left            =   0
          TabIndex        =   60
-         Top             =   1800
+         Top             =   1680
          Width           =   3015
       End
       Begin VB.CheckBox chkPad 
@@ -45,23 +45,23 @@ Begin VB.Form frmOptions
          Height          =   255
          Left            =   0
          TabIndex        =   53
-         Top             =   1410
+         Top             =   1290
          Width           =   2655
       End
       Begin VB.CheckBox chkGameClear 
          Caption         =   "Show game removal messages"
-         Height          =   375
+         Height          =   255
          Left            =   0
          TabIndex        =   52
          Top             =   900
          Width           =   3015
       End
       Begin VB.CommandButton cmdURL 
-         Caption         =   "&URL color"
-         Height          =   375
+         Caption         =   "&URL colour"
+         Height          =   300
          Left            =   0
          TabIndex        =   59
-         Top             =   2160
+         Top             =   2070
          Width           =   1215
       End
       Begin VB.CheckBox chkTimestamp 
@@ -157,7 +157,7 @@ Begin VB.Form frmOptions
       Height          =   375
       Left            =   6360
       TabIndex        =   58
-      Top             =   4080
+      Top             =   4440
       Width           =   975
    End
    Begin VB.CommandButton cmdOK 
@@ -166,20 +166,28 @@ Begin VB.Form frmOptions
       Height          =   375
       Left            =   5280
       TabIndex        =   57
-      Top             =   4080
+      Top             =   4440
       Width           =   975
    End
    Begin VB.Frame frameArray 
       BorderStyle     =   0  'None
-      Height          =   2535
+      Height          =   3375
       Index           =   0
       Left            =   240
       TabIndex        =   0
       Top             =   480
       Width           =   7095
+      Begin VB.CheckBox chkVPN 
+         Caption         =   "Force blank IP for VPN"
+         Height          =   195
+         Left            =   0
+         TabIndex        =   61
+         Top             =   2520
+         Width           =   6975
+      End
       Begin VB.Frame fraName 
          BorderStyle     =   0  'None
-         Height          =   2295
+         Height          =   2415
          Left            =   0
          TabIndex        =   29
          Top             =   120
@@ -585,14 +593,14 @@ Begin VB.Form frmOptions
       End
    End
    Begin MSComctlLib.TabStrip tabSettings 
-      Height          =   3840
-      Left            =   90
+      Height          =   4800
+      Left            =   0
       TabIndex        =   28
       TabStop         =   0   'False
       Top             =   120
-      Width           =   7335
-      _ExtentX        =   12938
-      _ExtentY        =   6773
+      Width           =   7575
+      _ExtentX        =   13361
+      _ExtentY        =   8467
       MultiRow        =   -1  'True
       TabMinWidth     =   529
       ImageList       =   "imgList"
@@ -668,12 +676,15 @@ Private Sub form_load()
 
 With cr
     frmOptions.Width = frameArray(0).Width + 500
-    frmOptions.Height = frameArray(0).Height + 2500
+    frmOptions.Height = frameArray(0).Height + 2000
     Dim frameTab As Frame
     For Each frameTab In frameArray
         frameTab.Left = frameArray(0).Left
         frameTab.Top = frameArray(0).Top
     Next
+    
+    tabSettings.Height = frmOptions.Height
+    tabSettings.Width = frmOptions.Width
 
     'Load window size and position:
     .ClassKey = HKEY_CURRENT_USER
@@ -853,6 +864,9 @@ On Error GoTo oops:
         .ValueKey = "chkAutoDownload"
         .Value = chkAutoDownload
         
+        .ValueKey = "chkVPN"
+        .Value = chkVPN
+        
         'check all the current sound filenames, if they aren't blank then save their name in registry
         If strSoundLocation1 <> vbNullString Then
             .ValueKey = "SoundLocation1"
@@ -968,6 +982,7 @@ On Error GoTo oops:
         frmGH.mnuViewHighlight.Checked = blnHighlight
         blnchkMuteAlertSound = chkMuteAlertSound
         blnchkAutoDownload = chkAutoDownload
+        blnchkVPN = chkVPN
         strTxtWordAlert = Trim(txtWordAlert)
         Call AlertWords
         blnchkSoundLocation1 = chkSoundLocation1
@@ -1155,6 +1170,15 @@ With cr
     
     chkAutoDownload = .Value
     
+    .ValueKey = "chkVPN"
+    If .Value = vbNullString Then
+        chkVPN.Value = vbChecked
+        .ValueType = REG_DWORD
+        .Value = 1
+    End If
+    
+    chkVPN = .Value
+    
     .ValueKey = "SoundLocation1"
     strSoundLocation1 = .Value
     .ValueKey = "SoundLocation2"
@@ -1302,6 +1326,7 @@ With cr
     
     blnchkMuteAlertSound = chkMuteAlertSound
     blnchkAutoDownload = chkAutoDownload
+    blnchkVPN = chkVPN
     strTxtWordAlert = Trim(txtWordAlert)
     Call AlertWords
     blnchkSoundLocation1 = chkSoundLocation1

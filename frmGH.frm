@@ -1909,7 +1909,7 @@ strDestTab = vbNullString
 With rtbTopic(1)
     .SelStart = 0
     .SelLength = 666
-    .SelText = "http://GTAMP.com http://GTAMP.com/forum"
+    .SelText = "https://GTAMP.com https://GTAMP.com/forum"
     .Tag = strChannel
     '.ToolTipText = strChannel
 End With
@@ -3185,7 +3185,7 @@ displaychat strDestTab, strHelpColor, "[-?]: display this help"
 displaychat strDestTab, strHelpColor, vbNullString
 displaychat strDestTab, strHelpColor, "Temporary storage folder: " & GetTmpPath
 'displaychat strDestTab, strHelpColor, vbNullString
-displaychat strDestTab, strHelpColor, "http://gtamp.com/GTA2/changelog.txt http://gtamp.com/GTA2/todo.txt http://gtamp.com/gh"
+displaychat strDestTab, strHelpColor, "https://gtamp.com/GTA2/changelog.txt https://gtamp.com/GTA2/todo.txt http://gtamp.com/gh"
 End Sub
 
 Public Sub cmdDisconnectClick()
@@ -3287,9 +3287,9 @@ On Error GoTo oops:
     If Exists(strGTA2path & "data\" & strHostMMP) = False Then
         If blnchkAutoDownload = True Then
             displaychat strChannel, strGHColor, "You don't have " & strMMPfile & ". Attempting to download."
-            Call CopyURLToFile("http://gtamp.com/maps/" & LCase(strMMPfile), GetTmpPath & "gta2map.7z")
+            Call CopyURLToFile("https://gtamp.com/maps/" & LCase(strMMPfile), GetTmpPath & "gta2map.7z")
         Else
-            displaychat strChannel, strGHColor, "Try to download map this map from http://gtamp.com/maps/" & LCase(strMMPfile) & " or http://gtamp.com/mapscript/maplist/download.php?mmp=" & Replace(LCase(strMMPfile), " ", "%20") & ".mmp"
+            displaychat strChannel, strGHColor, "Try to download map this map from https://gtamp.com/maps/" & LCase(strMMPfile) & " or https://gtamp.com/mapscript/maplist/download.php?mmp=" & Replace(LCase(strMMPfile), " ", "%20") & ".mmp"
         End If
         Exit Sub
     End If
@@ -4465,7 +4465,7 @@ Private Sub timStatus_Timer()
     Dim strState As String
     Dim i As Integer
     Dim blnSpecialDay As Boolean
-    
+      
     If Month(Now) = 12 And Day(Now) = 25 Then
         If frmGH.Icon <> picSanta.Picture Then frmGH.Icon = picSanta.Picture
         blnSpecialDay = True
@@ -4930,57 +4930,60 @@ If isURL(strLow) Then
         Exit Sub
     End If
     
+    'potential exploit, add "gtamp.com/maps/" to any URL and GH will download from it
+    
     If blnchkAutoDownload Then
-        If Left$(strLow, 22) = "http://gtamp.com/maps/" Then
+        If InStr(strLow, "gtamp.com/maps/") Then
             If Right$(strLow, 2) = "7z" Or Right$(strLow, 3) = "zip" Or InStr(22, strLow, ".") = 0 Then
                 Call CopyURLToFile(txt, GetTmpPath & "gta2map.7z")
                 Exit Sub
             End If
         End If
         
-        If strLow = "http://gtamp.com/gta2.7z" Then
-            If Right$(strLow, 2) = "7z" Or Right$(strLow, 3) = "zip" Or InStr(22, strLow, ".") = 0 Then
-                Call CopyURLToFile(txt, GetTmpPath & "gta2map.7z")
-                Exit Sub
-            End If
+        If InStr(strLow, "gtamp.com/mapscript/maplist/download.php?mmp=") Then
+            Call CopyURLToFile(txt, GetTmpPath & "gta2map.7z")
+            Exit Sub
         End If
         
-        If Left$(strLow, 32) = "http://projectcerbera.com/gta/2/" Then
+        If InStr(strLow, "gtamp.com/mapscript/maplist/autodl.php?mmp=") Then
+            Call CopyURLToFile(txt, GetTmpPath & "gta2map.7z")
+            Exit Sub
+        End If
+        
+        If InStr(strLow, "gtamp.com/maplist/maplump/") Then
+            Call CopyURLToFile(txt, GetTmpPath & "gta2map.7z")
+            Exit Sub
+        End If
+        
+'        If Left$(strLow, 22) = "http://gtamp.com/maps/" Then
+'            If Right$(strLow, 2) = "7z" Or Right$(strLow, 3) = "zip" Or InStr(22, strLow, ".") = 0 Then
+'                Call CopyURLToFile(txt, GetTmpPath & "gta2map.7z")
+'                Exit Sub
+'            End If
+'        End If
+'
+'        If Left$(strLow, 52) = "http://gtamp.com/mapscript/maplist/download.php?mmp=" Then
+'            Call CopyURLToFile(txt, GetTmpPath & "gta2map.7z")
+'            Exit Sub
+'        End If
+'
+'        If Left$(strLow, 50) = "http://gtamp.com/mapscript/maplist/autodl.php?mmp=" Then
+'            Call CopyURLToFile(txt, GetTmpPath & "gta2map.7z")
+'            Exit Sub
+'        End If
+'
+'        If Left$(strLow, 33) = "http://gtamp.com/maplist/maplump/" Then
+'            Call CopyURLToFile(txt, GetTmpPath & "gta2map.7z")
+'            Exit Sub
+'        End If
+        
+        If InStr(strLow, "https://projectcerbera.com/gta/2/") Then
             If Right$(strLow, 3) = "zip" Or Right$(strLow, 2) = "7z" Then
                 Call CopyURLToFile(txt, GetTmpPath & "gta2map.7z")
                 Exit Sub
             End If
         End If
         
-        If Left$(strLow, 52) = "http://gtamp.com/mapscript/maplist/download.php?mmp=" Then
-            Call CopyURLToFile(txt, GetTmpPath & "gta2map.7z")
-            Exit Sub
-        End If
-        
-        If Left$(strLow, 50) = "http://gtamp.com/mapscript/maplist/autodl.php?mmp=" Then
-            Call CopyURLToFile(txt, GetTmpPath & "gta2map.7z")
-            Exit Sub
-        End If
-        
-        If Left$(strLow, 33) = "http://gtamp.com/maplist/maplump/" Then
-            Call CopyURLToFile(txt, GetTmpPath & "gta2map.7z")
-            Exit Sub
-        End If
-        
-        If Left$(strLow, 54) = "http://gta2dare.omnitude.net/maplist/download.php?mmp=" Then
-            Call CopyURLToFile(txt, GetTmpPath & "gta2map.7z")
-            Exit Sub
-        End If
-        
-        If Left$(strLow, 52) = "http://gta2dare.omnitude.net/maplist/autodl.php?mmp=" Then
-            Call CopyURLToFile(txt, GetTmpPath & "gta2map.7z")
-            Exit Sub
-        End If
-        
-        If Left$(strLow, 37) = "http://gta2dare.omnitude.net/maplump/" Then
-            Call CopyURLToFile(txt, GetTmpPath & "gta2map.7z")
-            Exit Sub
-        End If
     End If
     
     'if this is a URL then start associated browser and goto web site
@@ -5975,7 +5978,7 @@ Private Sub Form_Unload(Cancel As Integer)
     Exit Sub
 oops:
   strErrdesc = Err.Description
-  displaychat strDestTab, strTextColor, strErrdesc
+  displaychat strDestTab, strTextColor, "Error number: " & Err.Number & " description: " & strErrdesc
   Select Case MsgBox("Are you sure you want to quit?", vbYesNo Or vbExclamation Or vbDefaultButton1, App.Title)
       Case vbYes
           cmdExit_Click

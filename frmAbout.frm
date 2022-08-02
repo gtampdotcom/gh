@@ -20,9 +20,8 @@ Begin VB.Form frmAbout
    LinkTopic       =   "Form2"
    MaxButton       =   0   'False
    MinButton       =   0   'False
-   MouseIcon       =   "frmAbout.frx":000C
    MousePointer    =   99  'Custom
-   Picture         =   "frmAbout.frx":06AE
+   Picture         =   "frmAbout.frx":000C
    ScaleHeight     =   3986.005
    ScaleMode       =   0  'User
    ScaleWidth      =   5831.513
@@ -41,7 +40,7 @@ Begin VB.Form frmAbout
       ReadOnly        =   -1  'True
       ScrollBars      =   2
       Appearance      =   0
-      TextRTF         =   $"frmAbout.frx":CF59
+      TextRTF         =   $"frmAbout.frx":C8B7
    End
    Begin VB.CommandButton cmdOK 
       Cancel          =   -1  'True
@@ -49,7 +48,7 @@ Begin VB.Form frmAbout
       Default         =   -1  'True
       Height          =   375
       Left            =   4320
-      MouseIcon       =   "frmAbout.frx":CFE2
+      MouseIcon       =   "frmAbout.frx":C940
       MousePointer    =   99  'Custom
       TabIndex        =   1
       Top             =   5280
@@ -79,10 +78,9 @@ Public Sub about()
     Me.Icon = frmGH.Icon
     Me.Caption = frmGH.Caption
 
-    strRespect = Array("[Donators:", "DAFE", "Kernel", "Wario5", "TommySprat", "DrSlony", "FrankCrank", "CubanPete", "Heri", _
-    " ", "[Coders:", "Sektor", "BenMillard", "Elypter", _
-    " ", "[Support:", "JernejL", "Vike", "B-$hep", "TradeMark", "Elypter", _
-         "Gustavob", "Razor", "Kamil", "irc.gtanet.com", _
+    strRespect = Array("[Code and design:", "Sektor", _
+    " ", "[Donators:", "DAFE", "Kernel", "Wario5", "TommySprat", "DrSlony", "FrankCrank", "CubanPete", "Heri", _
+    " ", "[Support:", "VERY-LAG-DUDE (discord)", "BenMillard (code)", "Elypter (code)", "Gustavob (testing)", "Razor (testing)", "Kamil (testing)", "irc.gtanet.com", _
     " ", "[Graphics:", "CubanPete", "famfamfam.com", "DMA Design", _
     " ", "[Disclaimer:", "The integrity of this product cannot be guaranteed for high voltage operation. The Zaibatsu Corporation reserves the right to change the specifications without notice. Conditions apply.")
     For i = 0 To UBound(strRespect)
