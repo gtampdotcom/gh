@@ -221,7 +221,18 @@ Public Function getVersion() As Boolean
     osinfo.dwOSVersionInfoSize = 148
     osinfo.szCSDVersion = Space$(128)
     retvalue = GetVersionExA(osinfo)
-    strOSV = osinfo.dwMajorVersion & "." & osinfo.dwMinorVersion & "." & osinfo.dwBuildNumber
+        
+    'Computer\HKEY_LOCAL_MACHINE\SYSTEM\Setup\MoSetup\Volatile
+    Dim cr As New cRegistry
+    
+    With cr
+        .ClassKey = HKEY_LOCAL_MACHINE
+        .SectionKey = "SYSTEM\Setup\MoSetup\Volatile"
+        .ValueKey = "DownlevelProductName"
+        strOSV = .Value
+    End With
+        
+    'strOSV = osinfo.dwMajorVersion & "." & osinfo.dwMinorVersion & "." & osinfo.dwBuildNumber
     If osinfo.dwPlatformId = 1 Then
         getVersion = True
     Else

@@ -80,7 +80,7 @@ On Error GoTo oops
     If strPasswordProtectGame = "Yes" Then chkHostPassword.Value = vbChecked
     With cr
         .ClassKey = HKEY_CURRENT_USER
-        .SectionKey = "software\GTA2 Game Hunter"
+        .SectionKey = "SOFTWARE\GTA2 Game Hunter"
         .ValueKey = "HostPassword"
         txtHostPassword = .Value
     End With
@@ -106,7 +106,7 @@ Private Sub cmdOK_Click()
 'write host password, comment and other selection settings to registry
     With cr
         .ClassKey = HKEY_CURRENT_USER
-        .SectionKey = "software\GTA2 Game Hunter"
+        .SectionKey = "SOFTWARE\GTA2 Game Hunter"
         .ValueType = REG_SZ
         .ValueKey = "chkHostPassword"
         .Value = chkHostPassword

@@ -101,3 +101,5 @@ oops:
      displaychat strDestTab, strTextColor, "Error determining GTA2 version number: " & strErrdesc & " " & Erl
      send "PRIVMSG " & gta2ghbot & " :Error determining GTA2 version number: " & strErrdesc
     End Function
+    
+    

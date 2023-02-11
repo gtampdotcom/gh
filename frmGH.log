@@ -1,0 +1,11 @@
+Line 174: Class MSWinsockLib.Winsock of control sckURL was not a loaded control class.
+Line 182: Class MSComctlLib.ListView of control lvMMPlist was not a loaded control class.
+Line 214: Class RichTextLib.RichTextBox of control rtbTopic was not a loaded control class.
+Line 239: Class MSComctlLib.TabStrip of control tabIRC was not a loaded control class.
+Line 269: Class RichTextLib.RichTextBox of control rtbChatbox was not a loaded control class.
+Line 289: Class RichTextLib.RichTextBox of control rtbHistory was not a loaded control class.
+Line 336: Class MSWinsockLib.Winsock of control sockIRC was not a loaded control class.
+Line 375: Class MSComctlLib.ImageList of control ImageListSortIconIndicator was not a loaded control class.
+Line 397: Class MSComctlLib.ImageList of control ImageList1 was not a loaded control class.
+Line 1424: Class MSComctlLib.ListView of control lvGames was not a loaded control class.
+Line 1489: Class MSComctlLib.ListView of control lvPlayers was not a loaded control class.

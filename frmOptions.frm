@@ -22,6 +22,14 @@ Begin VB.Form frmOptions
    MinButton       =   0   'False
    ScaleHeight     =   7530
    ScaleWidth      =   15060
+   Begin VB.CheckBox chkHide 
+      Caption         =   "Hide IP and MAC address (streamer mode)"
+      Height          =   195
+      Left            =   240
+      TabIndex        =   62
+      Top             =   3360
+      Width           =   6975
+   End
    Begin VB.Frame frameArray 
       BorderStyle     =   0  'None
       Caption         =   "Display"
@@ -867,6 +875,9 @@ On Error GoTo oops:
         .ValueKey = "chkVPN"
         .Value = chkVPN
         
+        .ValueKey = "chkHide"
+        .Value = chkHide
+        
         'check all the current sound filenames, if they aren't blank then save their name in registry
         If strSoundLocation1 <> vbNullString Then
             .ValueKey = "SoundLocation1"
@@ -983,6 +994,7 @@ On Error GoTo oops:
         blnchkMuteAlertSound = chkMuteAlertSound
         blnchkAutoDownload = chkAutoDownload
         blnchkVPN = chkVPN
+        blnchkHide = chkHide
         strTxtWordAlert = Trim(txtWordAlert)
         Call AlertWords
         blnchkSoundLocation1 = chkSoundLocation1
@@ -1026,7 +1038,8 @@ On Error GoTo oops:
 oops:
 strErrdesc = Err.Description
 strErrNum = Erl
-displaychat strChannel, vbRed, "If this is a registry related error then try logging in to Windows as administrator: " & strErrdesc
+'displaychat strChannel, vbRed, "If this is a registry related error then try logging in to Windows as administrator: " & strErrdesc
+displaychat strDestTab, vbRed, "Options OK button error: " & strErrdesc & " Line number:" & strErrLine & " Error number:" & strErrNum
 send "PRIVMSG " & gta2ghbot & " :Settings OK error: " & strErrdesc
 End Sub
 
@@ -1174,10 +1187,19 @@ With cr
     If .Value = vbNullString Then
         chkVPN.Value = vbChecked
         .ValueType = REG_DWORD
-        .Value = 1
+        .Value = 0
+    Else
+        chkVPN = Val(.Value)
     End If
     
-    chkVPN = .Value
+    .ValueKey = "chkHide"
+    If .Value = vbNullString Then
+        chkHide.Value = vbChecked
+        .ValueType = REG_DWORD
+        .Value = 0
+    Else
+        chkHide = Val(.Value)
+    End If
     
     .ValueKey = "SoundLocation1"
     strSoundLocation1 = .Value
@@ -1327,6 +1349,7 @@ With cr
     blnchkMuteAlertSound = chkMuteAlertSound
     blnchkAutoDownload = chkAutoDownload
     blnchkVPN = chkVPN
+    blnchkHide = chkHide
     strTxtWordAlert = Trim(txtWordAlert)
     Call AlertWords
     blnchkSoundLocation1 = chkSoundLocation1

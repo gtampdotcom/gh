@@ -20,7 +20,7 @@ ByVal nShowCmd As Long) As Long
 
 Public Const vbQuote = """"
 Public Const TXT_COUNTRY_DETECTION_FAILED = "Country detection failed"
-Public Const TXT_GEOSITE = "http://geoloc.daiguo.com"
+Public Const TXT_GEOSITE = "https://ip2c.org/s"
 Public Const TXT_GTA2EXE = "gta2.exe"       'name of GTA2 executable
 Public Const TXT_GHVER = "1.599b"            'GTA2 Game Hunter version number
 Public Const TXT_YOUR_GAME_REMOVED = "Your game was removed from the list."
@@ -113,6 +113,7 @@ Public strLocation2 As String
 Public blnchkMuteAlertSound As Boolean
 Public blnchkAutoDownload As Boolean
 Public blnchkVPN As Boolean
+Public blnchkHide As Boolean
 Public strTxtWordAlert As String
 Public strAlertWords(20) As String
 Public blnchkFlash1 As Boolean

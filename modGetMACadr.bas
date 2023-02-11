@@ -198,12 +198,14 @@ On Error GoTo oops
                     
                     strMacAddress = strTemp
                     If Left$(strGateway, 7) = "192.168" Or Left$(strGateway, 3) = "10." Then
-                        displaychat strChannel, strGHColor, "GTA2 requires that all players forward some ports from their router to their computer."
-                        'displaychat strChannel, strGHColor, "If the join button is disabled or if no one can join your game then you need to forward ports."
-                        displaychat strChannel, strGHColor, "Click this link to access your router settings: http://" & strGateway
-                        displaychat strChannel, strGHColor, "Default router passwords can be found here: http://www.routerpasswords.com"
-                        displaychat strChannel, strGHColor, "Forward 47624 TCP and 2300-2400 TCP/UDP to " & strLocalIP & "."
-                        displaychat strChannel, strGHColor, "Your LAN MAC address is " & strMacAddress & ". You should set the LAN IP reservation in your router to always give " & strLocalIP & " to " & strMacAddress & "."
+                        If blnchkHide = False Then
+                            displaychat strChannel, strGHColor, "GTA2 requires that all players forward some ports from their router to their computer."
+                            'displaychat strChannel, strGHColor, "If the join button is disabled or if no one can join your game then you need to forward ports."
+                            displaychat strChannel, strGHColor, "Click this link to access your router settings: http://" & strGateway
+                            displaychat strChannel, strGHColor, "Default router passwords can be found here: http://www.routerpasswords.com"
+                            displaychat strChannel, strGHColor, "Forward 47624 TCP and 2300-2400 TCP/UDP to " & strLocalIP & "."
+                            displaychat strChannel, strGHColor, "Your LAN MAC address is " & strMacAddress & ". You should set the LAN IP reservation in your router to always give " & strLocalIP & " to " & strMacAddress & "."
+                        End If
                     End If
                 End If
             End If

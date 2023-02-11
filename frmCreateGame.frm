@@ -1,5 +1,5 @@
 VERSION 5.00
-Object = "{831FDD16-0C5C-11D2-A9FC-0000F8754DA1}#2.0#0"; "mscomctl.ocx"
+Object = "{831FDD16-0C5C-11D2-A9FC-0000F8754DA1}#2.0#0"; "MSCOMCTL.OCX%"
 Begin VB.Form frmCreateGame 
    AutoRedraw      =   -1  'True
    Caption         =   "Create Game"
@@ -497,7 +497,7 @@ Private Function saveSettings() 'Why is this function called twice when creating
     'write host password, comment and other selection settings to registry
     With cr
         .ClassKey = HKEY_CURRENT_USER
-        .SectionKey = "software\GTA2 Game Hunter"
+        .SectionKey = "SOFTWARE\GTA2 Game Hunter"
         .ValueType = REG_SZ
         .ValueKey = "chkHostPassword"
         .Value = chkHostPassword
@@ -520,7 +520,7 @@ Private Function saveSettings() 'Why is this function called twice when creating
     'save the current map description to the registry, so it can be searched for next time
     With cr
         .ClassKey = HKEY_CURRENT_USER
-        .SectionKey = "software\GTA2 Game Hunter"
+        .SectionKey = "SOFTWARE\GTA2 Game Hunter"
         .ValueType = REG_SZ
         .ValueKey = "MapDesc"
         .Value = strGTA2MapDesc
@@ -544,7 +544,7 @@ Private Function saveSettings() 'Why is this function called twice when creating
         .Value = i
                 
         .ClassKey = HKEY_CURRENT_USER
-        .SectionKey = "software\gta2 game hunter"
+        .SectionKey = "SOFTWARE\GTA2 Game Hunter"
         .ValueKey = "map_desc"
         .ValueType = REG_DWORD
         .Value = vbNullString
@@ -788,7 +788,7 @@ Public Sub loadDisplaySettings()
 'Load display settings
     With cr
         .ClassKey = HKEY_CURRENT_USER
-        .SectionKey = "Software\GTA2 Game Hunter\display"
+        .SectionKey = "SOFTWARE\GTA2 Game Hunter\display"
         .ValueKey = "HostWindowState"
         
         'If WindowState = vbMinimized Then WindowState = vbNormal
@@ -967,7 +967,7 @@ Public Sub loadSortSettings()
         
         'load last map and then find it in the list
         .ClassKey = HKEY_CURRENT_USER
-        .SectionKey = "software\GTA2 Game Hunter"
+        .SectionKey = "SOFTWARE\GTA2 Game Hunter"
         .ValueKey = "MapDesc"
         If .Value <> vbNullString Then
             Dim itmX As ListItem

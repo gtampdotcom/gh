@@ -5,10 +5,10 @@ Object = "{831FDD16-0C5C-11D2-A9FC-0000F8754DA1}#2.0#0"; "mscomctl.ocx"
 Begin VB.Form frmGH 
    AutoRedraw      =   -1  'True
    Caption         =   "GH"
-   ClientHeight    =   5025
+   ClientHeight    =   5250
    ClientLeft      =   165
    ClientTop       =   750
-   ClientWidth     =   11235
+   ClientWidth     =   11070
    DrawStyle       =   5  'Transparent
    FillColor       =   &H80000012&
    BeginProperty Font 
@@ -24,8 +24,8 @@ Begin VB.Form frmGH
    KeyPreview      =   -1  'True
    LinkTopic       =   "Form1"
    Picture         =   "frmGH.frx":37C2
-   ScaleHeight     =   5025
-   ScaleWidth      =   11235
+   ScaleHeight     =   5250
+   ScaleWidth      =   11070
    Visible         =   0   'False
    Begin VB.Timer timStamp 
       Enabled         =   0   'False
@@ -224,7 +224,6 @@ Begin VB.Form frmGH
       _ExtentY        =   661
       _Version        =   393217
       BorderStyle     =   0
-      Enabled         =   -1  'True
       MultiLine       =   0   'False
       TextRTF         =   $"frmGH.frx":2CBEE
       BeginProperty Font {0BE35203-8F91-11CE-9DE3-00AA004BB851} 
@@ -279,7 +278,6 @@ Begin VB.Form frmGH
       _ExtentY        =   688
       _Version        =   393217
       BorderStyle     =   0
-      Enabled         =   -1  'True
       MultiLine       =   0   'False
       TextRTF         =   $"frmGH.frx":2CC7C
    End
@@ -300,6 +298,7 @@ Begin VB.Form frmGH
       _ExtentY        =   2566
       _Version        =   393217
       BorderStyle     =   0
+      Enabled         =   -1  'True
       ReadOnly        =   -1  'True
       ScrollBars      =   2
       DisableNoScroll =   -1  'True
@@ -2249,6 +2248,9 @@ If command <> vbNullString Then
     'If doJoin = True Then lvGames_click (0)
 End If
 
+'displaychat strDestTab, strGHColor, "Total GTA2 Lobby Time: " & Duration(Val(readINI("Statistics", "GTA2 Lobby Time", DOCUMENTS & "\gta2gh.ini")), 2)
+'displaychat strDestTab, strGHColor, "Total GTA2 Running Time: " & Duration(Val(readINI("Statistics", "GTA2 Running Time", DOCUMENTS & "\gta2gh.ini")), 2)
+                
 If blnchkConnectOnStartup = True Then cmdToolbar_Click (BTN_SIGN_IN)
 
 'Dim SharingMgr, EachConnection, ConnectionProps, item
@@ -2277,19 +2279,19 @@ oops:
     'End If
 End Sub
 
-Public Sub getCC()
-On Error GoTo oops:
-    sckURL.Close
-    'sckURL.Connect "api.hostip.info", 80
-    sckURL.Connect "geoloc.daiguo.com", 80
-    'http://api.hostip.info/country.php
-    'sckURL.Connect "gtamp.com", 80
-    'sckURL.Connect "www.maxmind.com"  'www.maxmind.com/app/mylocation
-    'sckURL.Connect "127.0.0.1", 80
-    Exit Sub
-oops:
-displaychat strChannel, strGHColor, "Error connecting to " & TXT_GEOSITE
-End Sub
+'Public Sub getCC()
+'On Error GoTo oops:
+'    'sckURL.Close
+'    'sckURL.Connect "api.hostip.info", 80
+'    'sckURL.Connect "geoloc.daiguo.com", 80
+'    'http://api.hostip.info/country.php
+'    'sckURL.Connect "gtamp.com", 80
+'    'sckURL.Connect "www.maxmind.com"  'www.maxmind.com/app/mylocation
+'    'sckURL.Connect "127.0.0.1", 80
+'    Exit Sub
+'oops:
+'displaychat strChannel, strGHColor, "Error connecting to " & TXT_GEOSITE
+'End Sub
 
 Private Sub cmdExit_Click()
     'save settings to registry on exit
@@ -2960,21 +2962,34 @@ Select Case strChatCommand
       displaychat strChatParam, strTextColor, vbNullString
   Case "HOST", "IP"
       displaychat strDestTab, strConnectionColor, "Your external host name is: " & strExternalHostName
+  Case "VPN"
+      blnchkVPN = Not (blnchkVPN)
+      With cr
+        .ClassKey = HKEY_CURRENT_USER
+        .SectionKey = "SOFTWARE\GTA2 Game Hunter"
+        .ValueKey = "chkVPN"
+        .Value = blnchkVPN
+      End With
+      displaychat strDestTab, strTextColor, "VPN mode switched to: " & blnchkVPN
   Case "QUIT", "EXIT"
       send "QUIT :" & Mid$(strChatMsg, 7, 255)
       'blnDONOTCHANGESERVER = True
       blnDisconnectClick = True
       Disconnect
   Case "IGNORE", "I"
-      displaychat tabIRC.SelectedItem.Caption, strGHColor, "Added " & strChatParam & " to ignore list: file://" & DOCUMENTS & "\gta2gh_ignore_list.txt"
-      Call WriteINI("Ignore", strChatParam, "True", DOCUMENTS & "\gta2gh_ignore_list.txt")
+      If strChatParam = vbNullString Then
+        displaychat tabIRC.SelectedItem.Caption, strGHColor, "Ignore list: file://" & DOCUMENTS & "\gta2gh_ignore_list.txt"
+      Else
+        displaychat tabIRC.SelectedItem.Caption, strGHColor, "Added " & strChatParam & " to ignore list: file://" & DOCUMENTS & "\gta2gh_ignore_list.txt"
+        Call WriteINI("Ignore", strChatParam, "True", DOCUMENTS & "\gta2gh_ignore_list.txt")
+      End If
   Case "HIDE"
       blnHidden = Not blnHidden
       
       If blnHidden = True Then
           With cr
               .ClassKey = HKEY_CURRENT_USER
-              .SectionKey = "software\gta2 game hunter"
+              .SectionKey = "SOFTWARE\GTA2 Game Hunter"
               .ValueKey = "Hide"
               .Value = 1
           End With
@@ -2984,7 +2999,7 @@ Select Case strChatCommand
       Else
           With cr
               .ClassKey = HKEY_CURRENT_USER
-              .SectionKey = "software\gta2 game hunter"
+              .SectionKey = "SOFTWARE\GTA2 Game Hunter"
               .ValueKey = "Hide"
               .Value = 0
           End With
@@ -3814,47 +3829,48 @@ End Sub
 
 'Networking
 
-Private Sub sckURL_Connect()
-On Error Resume Next
-    'If strFailedCountryIP = vbNullString Then
-      'http://api.hostip.info/country.php
-      'sckURL.SendData "GET /country.php HTTP/1.0" & vbCrLf
-      'sckURL.SendData "Host: api.hostip.info" & vbCrLf
-      'sckURL.SendData vbCrLf
-      
-      sckURL.SendData "GET /?self HTTP/1.0" & vbCrLf
-      sckURL.SendData "Host: geoloc.daiguo.com" & vbCrLf
-      sckURL.SendData vbCrLf
-      '    Else
-      '      sckURL.SendData "GET /?ip=" & strFailedCountryIP & " HTTP/1.0" & vbCrLf
-      '      sckURL.SendData "Host: geoloc.daiguo.com" & vbCrLf
-      '      sckURL.SendData vbCrLf
-    'End If
-End Sub
+'Private Sub sckURL_Connect()
+'On Error Resume Next
+'    'If strFailedCountryIP = vbNullString Then
+'      'http://api.hostip.info/country.php
+'      'sckURL.SendData "GET /country.php HTTP/1.0" & vbCrLf
+'      'sckURL.SendData "Host: api.hostip.info" & vbCrLf
+'      'sckURL.SendData vbCrLf
+'
+'      sckURL.SendData "GET /?self HTTP/1.0" & vbCrLf
+'      sckURL.SendData "Host: geoloc.daiguo.com" & vbCrLf
+'      sckURL.SendData vbCrLf
+'      '    Else
+'      '      sckURL.SendData "GET /?ip=" & strFailedCountryIP & " HTTP/1.0" & vbCrLf
+'      '      sckURL.SendData "Host: geoloc.daiguo.com" & vbCrLf
+'      '      sckURL.SendData vbCrLf
+'    'End If
+'End Sub
 
-Private Sub sckURL_DataArrival(ByVal BytesTotal As Long)
+
+Public Sub getCC()
 On Error GoTo oops
     Dim strTemp As String
     Dim i As Integer
     Dim strTempCC As String
     
-    If sckURL.State = sckConnected Then sckURL.GetData strTemp, vbString, 666
+    'If sckURL.State = sckConnected Then sckURL.GetData strTemp, vbString, 666
     
-    'strTempCC = Right$(strTemp, 2)
+    strTemp = CopyURLToRAM(TXT_GEOSITE)
     
     'search the response for 1; and the next two characters should be the country code
     i = InStr(strTemp, "1;")
     
     If i = 0 Then
         displaychat strDestTab, strConnectionColor, TXT_COUNTRY_DETECTION_FAILED
-        sckURL.Close
+        'sckURL.Close
         blnCountryDetectFail = True
         Exit Sub
     End If
         
     If i > 0 Then strTempCC = Mid$(strTemp, i + 2, 2)
       
-    sckURL.Close
+    'sckURL.Close
       
     Select Case strTempCC
         Case "GB"
@@ -3884,16 +3900,71 @@ On Error GoTo oops
     Next i
     Exit Sub
 oops:
-    displaychat strChannel, strGHColor, "sckURL_DataArrival error"
+    displaychat strChannel, strGHColor, "getCC error"
 End Sub
 
-Private Sub sckURL_error(ByVal Number As Integer, Description As String, ByVal sCode As Long, ByVal source As String, ByVal HelpFile As String, ByVal HelpContext As Long, CancelDisplay As Boolean)
-    displaychat strDestTab, strConnectionColor, TXT_COUNTRY_DETECTION_FAILED & ": " & Description
-    displaychat strDestTab, strConnectionColor, "Failed to connect to: " & TXT_GEOSITE
-    cmdToolbar(BTN_SIGN_IN).Enabled = True
-    mnuFileSignIn.Enabled = True
-    blnCountryDetectFail = True
-End Sub
+'Private Sub sckURL_DataArrival(ByVal BytesTotal As Long)
+'On Error GoTo oops
+'    Dim strTemp As String
+'    Dim i As Integer
+'    Dim strTempCC As String
+'
+'    If sckURL.State = sckConnected Then sckURL.GetData strTemp, vbString, 666
+'
+'    strTemp = CopyURLToRAM(TXT_GEOSITE)
+'
+'    'search the response for 1; and the next two characters should be the country code
+'    i = InStr(strTemp, "1;")
+'
+'    If i = 0 Then
+'        displaychat strDestTab, strConnectionColor, TXT_COUNTRY_DETECTION_FAILED
+'        sckURL.Close
+'        blnCountryDetectFail = True
+'        Exit Sub
+'    End If
+'
+'    If i > 0 Then strTempCC = Mid$(strTemp, i + 2, 2)
+'
+'    sckURL.Close
+'
+'    Select Case strTempCC
+'        Case "GB"
+'            strTempCC = "UK"
+'        Case "EU"
+'            blnCountryDetectFail = True
+'    End Select
+'
+'    For i = 0 To UBound(strCountries)
+'        If strTempCC = Right$(strCountries(i), 2) Then
+'            If blnCountryDetectFail = False Then
+'                displaychat strDestTab, strConnectionColor, vbNullString & "Country detected as " & Left$(strCountries(i), Len(strCountries(i)) - 5)
+'            End If
+'
+'            strCountryCode = strTempCC
+'            intCountryIndex = i
+'
+'            With cr
+'                .ClassKey = HKEY_CURRENT_USER
+'                .SectionKey = "SOFTWARE\GTA2 Game Hunter"
+'                .ValueType = REG_SZ
+'                .ValueKey = "Country"
+'                .Value = strCountryCode
+'            End With
+'            Exit For
+'        End If
+'    Next i
+'    Exit Sub
+'oops:
+'    displaychat strChannel, strGHColor, "sckURL_DataArrival error"
+'End Sub
+
+'Private Sub sckURL_error(ByVal Number As Integer, Description As String, ByVal sCode As Long, ByVal source As String, ByVal HelpFile As String, ByVal HelpContext As Long, CancelDisplay As Boolean)
+'    displaychat strDestTab, strConnectionColor, TXT_COUNTRY_DETECTION_FAILED & ": " & Description
+'    displaychat strDestTab, strConnectionColor, "Failed to connect to: " & TXT_GEOSITE
+'    cmdToolbar(BTN_SIGN_IN).Enabled = True
+'    mnuFileSignIn.Enabled = True
+'    blnCountryDetectFail = True
+'End Sub
 
 Private Sub sockIRC_Connect()   'as soon as we're connected to the server:
     Dim strIdent As String
@@ -4631,6 +4702,8 @@ Private Sub timStatus_Timer()
         Else
             If lngLobby <> 0 Then
                 displaychat strChannel, strGHColor, "GTA2 lobby was open for " & Duration(lngLobby, 2)
+                lngLobby = lngLobby + Val(readINI("Statistics", "GTA2 Lobby Time", DOCUMENTS & "\gta2gh.ini"))
+                Call WriteINI("Statistics", "GTA2 Lobby Time", lngLobby, DOCUMENTS & "\gta2gh.ini")
                 lngLobby = 0
             End If
             
@@ -4667,6 +4740,8 @@ Private Sub timStatus_Timer()
             Else
                 If lngGTA2RunningTime <> 0 Then
                     displaychat strChannel, strGHColor, "GTA2 was in game for " & Duration(lngGTA2RunningTime, 2)
+                    lngGTA2RunningTime = lngGTA2RunningTime + Val(readINI("Statistics", "GTA2 Running Time", DOCUMENTS & "\gta2gh.ini"))
+                    Call WriteINI("Statistics", "GTA2 Running Time", lngGTA2RunningTime, DOCUMENTS & "\gta2gh.ini")
                     lngGTA2RunningTime = 0
                     blnPlayReplay = False
                 End If
@@ -6172,3 +6247,4 @@ Private Sub txtSlave_Change()
         displaychat strChannel, strGHColor, txtSlave
     End If
 End Sub
+

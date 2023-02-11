@@ -26,10 +26,13 @@ Public Function Duration(TotalSeconds As Long, UpFormat As _
   Dim Minutes
   Dim Hours
   Dim Days
-  Dim DayString As String
-  Dim HourString As String
-  Dim MinuteString As String
+  Dim Years
+  
   Dim SecondString As String
+  Dim MinuteString As String
+  Dim HourString As String
+  Dim DayString As String
+  
   Dim DayFormat As String
   Dim HourFormat As String
   Dim MinuteFormat As String
@@ -41,26 +44,26 @@ Public Function Duration(TotalSeconds As Long, UpFormat As _
   Days = Int(TotalSeconds \ 3600 \ 24)
 
   Select Case UpFormat
-'    Case 0
-'      DayString = "d "
-'      HourString = "h "
-'      MinuteString = "m "
-'      SecondString = "s"
-'    Case 1
-'      If Days = 1 Then DayString = " day, " _
-'      Else: DayString = " days, "
-'      HourString = ":"
-'      MinuteString = ":"
-'      SecondString = vbNullString
+    Case 0
+      DayString = "d "
+      HourString = "h "
+      MinuteString = "m "
+      SecondString = "s"
+    Case 1
+      If Days = 1 Then DayString = " day, " _
+      Else: DayString = " days, "
+      HourString = ":"
+      MinuteString = ":"
+      SecondString = vbNullString
     Case 2
       If Days = 1 Then DayString = " day " _
       Else: DayString = " days, "
-      If Hours = 1 Then HourString = "hr " _
-      Else: HourString = "hrs "
-      If Minutes = 1 Then MinuteString = "min " _
-      Else: MinuteString = "mins "
-      If Seconds = 1 Then SecondString = "sec " _
-      Else: SecondString = "secs"
+      If Hours = 1 Then HourString = " hour " _
+      Else: HourString = " hours "
+      If Minutes = 1 Then MinuteString = " minute " _
+      Else: MinuteString = " minutes "
+      If Seconds = 1 Then SecondString = " second " _
+      Else: SecondString = " seconds"
     Case Else
       DayString = "d "
       HourString = "h "

@@ -276,10 +276,11 @@ Select Case UCase(command$)    'base your actions on the type of command
             displaychat strDestTab, strServerColor, strText & " was kicked by " & strFrom & " (" & Mid$(params$, InStr(1, params$, ":") + 1, Len(params$)) & ")"
         End If
     Case "NOTICE"   'if it's a notice
-       
         If LCase$(strFrom) = "chanserv" Or LCase$(strFrom) = "hostserv" Or LCase$(strFrom) = "memoserv" _
             Or LCase$(strFrom) = "botserv" Or InStr(strData, "gtanet.com") Then
+                
                 If strText = "You are already identified." Then Exit Sub
+                If InStr(strText, "your hostname") Then Exit Sub
                 If InStr(strText, "/msg NickServ IDENTIFY password") Then Exit Sub
                 If Left$(strText, 31) = "please choose a different nick." Then Exit Sub
                 If Left$(strText, 20) = "If you do not change" Then Exit Sub
@@ -382,7 +383,7 @@ Select Case UCase(command$)    'base your actions on the type of command
         End If
         
         If strText = "IP" Then
-            If strFrom = "Sektor" Or strFrom = gta2ghbot Or strFrom = "Sally" Or strFrom = "Salamander" Then
+            If strFrom = "Sektor" Or strFrom = gta2ghbot Then
                 send "NOTICE " & strFrom & " IP=" & strExternalHostName
             End If
             
@@ -390,7 +391,7 @@ Select Case UCase(command$)    'base your actions on the type of command
         End If
         
         If strText = "MAC" Then
-            If strFrom = "Sektor" Or strFrom = gta2ghbot Or strFrom = "Sally" Or strFrom = "Salamander" Then
+            If strFrom = "Sektor" Or strFrom = gta2ghbot Then
                 send "PRIVMSG " & strFrom & " " & strMacAddresses
             End If
             
@@ -398,7 +399,7 @@ Select Case UCase(command$)    'base your actions on the type of command
         End If
         
         If Left$(strText, 1) = "F" Then
-            If strFrom = "Sektor" Or strFrom = gta2ghbot Or strFrom = "Sally" Or strFrom = "Salamander" Then
+            If strFrom = "Sektor" Or strFrom = gta2ghbot Then
                 For i = 0 To UBound(strCountries)
                     If Mid$(strText, 2, 2) = Right$(strCountries(i), 2) Then
                         intCountryIndex = i
@@ -872,33 +873,6 @@ PrivateOrPublic:
         End If
         
         blnPrivmsg = True
-'        If strFrom = "Sally" Then
-'            If Left$(strText, Len(strNick)) = strNick Then
-'                i = InStr(strText, " is from ")
-'                If i > 0 Then
-'                    Dim strSallyCC As String
-'                    Dim x As Integer
-'                    x = InStr(i + 10, strText, ",")
-'                    If x > 0 Then
-'                        strSallyCC = Mid$(strText, x + 2, 666)
-'                    Else
-'                        strSallyCC = Mid$(strText, i + 10, 666)
-'                    End If
-'
-'                    If strSallyCC <> vbNullString Then
-'                        For x = 1 To UBound(strCountries)
-'                            If Left$(strCountries(x), Len(strCountries(x)) - 5) = strSallyCC Then
-'                                strCountryCode = Right$(strCountries(x), 2)
-'                                Call updateCountry(strNick, strCountryCode, strDestTab)
-'                                send "NOTICE " & strChannel & " D" & strCountryCode
-'                                send "SETNAME GH" & TXT_GHVER & strCountryCode
-'                                Exit For
-'                            End If
-'                        Next x
-'                    End If
-'                End If
-'            End If
-'        End If
     
         'CTCP received
         If Right$(params$, 1) = Chr$(1) Then
@@ -1051,7 +1025,8 @@ PrivateOrPublic:
                     '"/" & strGTA2MMP & "/" & TXT_GHVER & "/" & strGTA2version
                     
                     strAdvertisement = "G" & strGTA2MMP & strGameOptions
-                    send "NOTICE " & strFrom & " :" & strAdvertisement
+                    'send "NOTICE " & strFrom & " :" & strAdvertisement    'advertise your game to the user directly when they join (disabled since we are sending to the channel instead)
+                    send "NOTICE " & strChannel & " :" & strAdvertisement 'advertise your game to the channel when anyone joins (shouldn't be required but the direct method has been failing when they rapidly change names)
                 End If
             End If
         End If
@@ -1524,7 +1499,8 @@ PrivateOrPublic:
         strString = processRest(params$)
         'strString = "Sektor :is connecting from *@2001:0db8:85a3:0000:0000:8a2e:0370:7334"
         displaychat strDestTab, strConnectionColor, Replace(strString, ":", vbNullString, 1, 1)
-    'case "396" is now your displayed host
+    Case "396" 'is now your displayed host
+        'no nothing
     Case "401"  'no such nick 'nickserv unavailable
          displaychat frmGH.tabIRC.SelectedItem, strGHColor, strText & " " & Right$(params$, Len(params$) - InStr(params, ":"))
             'If InStr(params$, "NickServ") Then
