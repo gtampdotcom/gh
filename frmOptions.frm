@@ -22,14 +22,6 @@ Begin VB.Form frmOptions
    MinButton       =   0   'False
    ScaleHeight     =   7530
    ScaleWidth      =   15060
-   Begin VB.CheckBox chkHide 
-      Caption         =   "Hide IP and MAC address (streamer mode)"
-      Height          =   195
-      Left            =   240
-      TabIndex        =   62
-      Top             =   3360
-      Width           =   6975
-   End
    Begin VB.Frame frameArray 
       BorderStyle     =   0  'None
       Caption         =   "Display"
@@ -185,6 +177,14 @@ Begin VB.Form frmOptions
       TabIndex        =   0
       Top             =   480
       Width           =   7095
+      Begin VB.CheckBox chkHide 
+         Caption         =   "Hide IP and MAC address (streamer mode)"
+         Height          =   195
+         Left            =   0
+         TabIndex        =   62
+         Top             =   2880
+         Width           =   6975
+      End
       Begin VB.CheckBox chkVPN 
          Caption         =   "Force blank IP for VPN"
          Height          =   195

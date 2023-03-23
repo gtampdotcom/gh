@@ -1,11 +1,11 @@
-frmGH = 25, 25, 809, 483, , 75, 75, 909, 496, C
+frmGH = 25, 25, 809, 483, Z, 75, 75, 909, 496, C
 cRegistry = 0, 0, 1209, 717, 
 frmAbout = 175, 175, 959, 633, , 175, 175, 1009, 596, C
 modSystray = 78, 78, 1287, 795, 
 frmOptions = 50, 50, 834, 508, , 0, 0, 834, 421, C
 modResolve = 104, 104, 1313, 821, 
 modPlayWave = 78, 78, 1760, 960, 
-modGlobalsOMG = 225, 225, 1009, 683, Z
+modGlobalsOMG = 225, 225, 1009, 683, 
 modComdlg = 75, 75, 859, 533, 
 frmCreateGame = 156, 156, 1441, 838, , 25, 25, 859, 446, C
 modDetectURL = 312, 312, 1623, 1056, 
