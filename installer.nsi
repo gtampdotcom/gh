@@ -1,7 +1,7 @@
 Function .onInit
    IfFileExists $SYSDIR\MSVBVM60.DLL exists 0
     MessageBox MB_YESNO "You need to install the VB6 runtime files before you can use this app.  Do you want to send your web browser to the download page?" IDNo NoAbort
-    ExecShell "open" "http://www.microsoft.com/downloads/details.aspx?familyid=7b9ba261-7a9c-43e7-9117-f673077ffb3c"
+    ExecShell "open" "https://www.microsoft.com/en-US/download/details.aspx?id=7474"
     NoAbort:
     exists:
 FunctionEnd
