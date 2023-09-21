@@ -20,9 +20,9 @@ ByVal nShowCmd As Long) As Long
 
 Public Const vbQuote = """"
 Public Const TXT_COUNTRY_DETECTION_FAILED = "Country detection failed"
-Public Const TXT_GEOSITE = "https://ip2c.org/s"
+Public Const TXT_GEOSITE = "http://ip2c.org/s"
 Public Const TXT_GTA2EXE = "gta2.exe"       'name of GTA2 executable
-Public Const TXT_GHVER = "1.599"            'GTA2 Game Hunter version number
+Public Const TXT_GHVER = "1.5991"            'GTA2 Game Hunter version number
 Public Const TXT_YOUR_GAME_REMOVED = "Your game was removed from the list."
 Public Const TXT_PRIVATE = "Private chat with "
 Public Const gta2ghbot = "gta2ghbot"

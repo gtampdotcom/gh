@@ -1279,7 +1279,7 @@ PrivateOrPublic:
                 .ValueKey = "ExternalHostName"
                 If .Value = vbNullString Or .Value <> strExternalHostName Then
                     .Value = strExternalHostName
-                    'You hostname has changed. Your country needs to be detected again.
+                    'Your hostname has changed. Your country needs to be detected again.
                     blnGetCC = True
                 End If
             End With

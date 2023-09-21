@@ -25,8 +25,8 @@ SetCompressor lzma
 
 ; MUI Settings
 !define MUI_ABORTWARNING
-!define MUI_ICON "icon.ico"
-!define MUI_UNICON "C:\PROGRA~1\NSIS\Contrib\Graphics\Icons\modern-uninstall.ico"
+!define MUI_ICON "gta2gh.ico"
+;!define MUI_UNICON "C:\PROGRA~1\NSIS\Contrib\Graphics\Icons\modern-uninstall.ico"
 
 
 ; Welcome page
