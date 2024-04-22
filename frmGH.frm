@@ -1,5 +1,5 @@
 VERSION 5.00
-Object = "{248DD890-BB45-11CF-9ABC-0080C7E7B78D}#1.0#0"; "mswinsck.ocx"
+Object = "{248DD890-BB45-11CF-9ABC-0080C7E7B78D}#1.0#0"; "MSWINSCK.OCX"
 Object = "{3B7C8863-D78F-101B-B9B5-04021C009402}#1.2#0"; "richtx32.ocx"
 Object = "{831FDD16-0C5C-11D2-A9FC-0000F8754DA1}#2.0#0"; "mscomctl.ocx"
 Begin VB.Form frmGH 
@@ -224,6 +224,7 @@ Begin VB.Form frmGH
       _ExtentY        =   661
       _Version        =   393217
       BorderStyle     =   0
+      Enabled         =   -1  'True
       MultiLine       =   0   'False
       TextRTF         =   $"frmGH.frx":2CBEE
       BeginProperty Font {0BE35203-8F91-11CE-9DE3-00AA004BB851} 
@@ -278,6 +279,7 @@ Begin VB.Form frmGH
       _ExtentY        =   688
       _Version        =   393217
       BorderStyle     =   0
+      Enabled         =   -1  'True
       MultiLine       =   0   'False
       TextRTF         =   $"frmGH.frx":2CC7C
    End
@@ -298,7 +300,6 @@ Begin VB.Form frmGH
       _ExtentY        =   2566
       _Version        =   393217
       BorderStyle     =   0
-      Enabled         =   -1  'True
       ReadOnly        =   -1  'True
       ScrollBars      =   2
       DisableNoScroll =   -1  'True
@@ -5777,14 +5778,22 @@ Public Sub cmdOptions_Click()
 End Sub
 
 Private Sub cmdGTA2Manager_Click()
-    On Error Resume Next
+    On Error GoTo oops
     Call setGTA2path
+    
     If Exists(strGTA2path & "gta2manager.exe") = True Then
+        Call FindProcess("gta2manager.exe", True) 'Find and kill process
+        displaychat strDestTab, 32896, "Launching GTA2 Manager"
         Call shellandwait(vbQuote & strGTA2path & "gta2manager.exe" & vbQuote, strGTA2path)
-        AppActivate "GTA2 Manager"
     Else
         displaychat strDestTab, vbRed, "Can't find " & strGTA2path & "gta2manager.exe"
     End If
+Exit Sub
+
+oops:
+    strErrdesc = Err.Description
+    strErrLine = Erl
+    displaychat strDestTab, strTextColor, "error launching GTA2 Manager:  " & strErrdesc
 End Sub
 
 Private Sub mnuFileCreateGame_Click()
@@ -6188,7 +6197,6 @@ Private Sub unpnp_Click()
     Dim strUnPnPpath As String
     strUnPnPpath = "extras\unpnp.exe"
     'Call CopyURLToFile("http://www.grc.com/files/unpnp.exe", strGTA2path & strUnPnPpath)
-    'AppActivate "UnPlug n' Pray - Manage UPnP Now!" 'error
     If Exists(strGTA2path & strUnPnPpath) = True Then 'doesnt wait for download to finish yet
         Call shellandwait(vbQuote & strGTA2path & strUnPnPpath & vbQuote, strUnPnPpath)
     End If
