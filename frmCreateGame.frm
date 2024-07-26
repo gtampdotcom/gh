@@ -1,12 +1,12 @@
 VERSION 5.00
-Object = "{831FDD16-0C5C-11D2-A9FC-0000F8754DA1}#2.0#0"; "MSCOMCTL.OCX%"
+Object = "{831FDD16-0C5C-11D2-A9FC-0000F8754DA1}#2.0#0"; "mscomctl.ocx"
 Begin VB.Form frmCreateGame 
    AutoRedraw      =   -1  'True
    Caption         =   "Create Game"
    ClientHeight    =   5565
    ClientLeft      =   60
    ClientTop       =   450
-   ClientWidth     =   8970
+   ClientWidth     =   11175
    ClipControls    =   0   'False
    BeginProperty Font 
       Name            =   "Microsoft Sans Serif"
@@ -20,7 +20,7 @@ Begin VB.Form frmCreateGame
    KeyPreview      =   -1  'True
    LinkTopic       =   "Form1"
    ScaleHeight     =   5565
-   ScaleWidth      =   8970
+   ScaleWidth      =   11175
    Begin VB.CommandButton cmdRandom 
       Caption         =   "Ra&ndom"
       Height          =   375
@@ -235,7 +235,7 @@ Dim strSCR As String
 Dim strLastGMP As String
 Dim strLastSTY As String
 Dim strLastSCR As String
-
+Dim i As Integer
 Dim strLastPicFileName As String
 Const SIDESPACE = 240
 Const STANDARD_SPACE = 120
@@ -268,6 +268,23 @@ Private Sub cmdRandom_Click()
     lvMaps.SelectedItem.EnsureVisible
     Dim itmRandom As MSComctlLib.ListItem
     Call lvMaps_ItemClick(itmRandom)
+End Sub
+
+Private Sub SaveList()
+    On Error GoTo oops
+    Open "maplist.cvs" For Output As #1
+        Print #1, "Description,GMP,STY,SCR,MMP,PlayerCount"
+        For i = 1 To lvMaps.ListItems.count
+            With lvMaps.ListItems.Item(i)
+                Print #1, .Text & "," & .ListSubItems(1).Text & "," & .ListSubItems(2).Text & "," & .ListSubItems(3).Text & "," & .ListSubItems(4).Text & "," & .ListSubItems(5).Text
+            End With
+        Next
+    Close #1
+        Exit Sub
+oops:
+    strErrdesc = Err.Description
+    strErrLine = Erl
+    displaychat strDestTab, vbRed, "Error saving map list: " & strErrdesc & " - Line: " & strErrLine
 End Sub
 
 Private Sub txtFind_change()
@@ -695,6 +712,8 @@ End Sub
 Private Sub cmdClose_Click()
 
 On Error GoTo oops:
+    
+    Call SaveList
     
     'write do_sync_check to GTA2 reg key based on chkSync checkbox
     With cr
