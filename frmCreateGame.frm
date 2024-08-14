@@ -272,7 +272,7 @@ End Sub
 
 Private Sub SaveList()
     On Error GoTo oops
-    Open "maplist.cvs" For Output As #1
+    Open "maplist.csv" For Output As #1
         Print #1, "Description,GMP,STY,SCR,MMP,PlayerCount"
         For i = 1 To lvMaps.ListItems.count
             With lvMaps.ListItems.Item(i)
