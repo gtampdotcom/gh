@@ -209,18 +209,18 @@ Set cr = Nothing
 
 End Sub
 
-Public Function writeTest() As Boolean
-
-writeTest = False
-
-If App.LogMode = False Then 'we are running in the VB6 IDE
-    If InStr(GetCommandOutput("c:\path\7za.exe a " & vbQuote & strGTA2path & "gta2ghwritetest.7z" & vbQuote & " " & vbQuote & strGTA2path & "readme.txt" & vbQuote, True, False, True), "Everything is Ok") Then
-        writeTest = True
-    End If
-Else
-    If InStr(GetCommandOutput(App.Path & "\7za.exe a " & vbQuote & strGTA2path & "gta2ghwritetest.7z" & vbQuote & " " & vbQuote & strGTA2path & "readme.txt" & vbQuote, True, False, True), "Everything is Ok") Then
-        writeTest = True
-    End If
-End If
-
-End Function
+'Public Function writeTest() As Boolean
+'
+'writeTest = False
+'
+'If App.LogMode = False Then 'we are running in the VB6 IDE
+'    If InStr(GetCommandOutput("c:\path\7za.exe a " & vbQuote & strGTA2path & "gta2ghwritetest.7z" & vbQuote & " " & vbQuote & strGTA2path & "readme.txt" & vbQuote, True, False, True), "Everything is Ok") Then
+'        writeTest = True
+'    End If
+'Else
+'    If InStr(GetCommandOutput(App.Path & "\7za.exe a " & vbQuote & strGTA2path & "gta2ghwritetest.7z" & vbQuote & " " & vbQuote & strGTA2path & "readme.txt" & vbQuote, True, False, True), "Everything is Ok") Then
+'        writeTest = True
+'    End If
+'End If
+'
+'End Function

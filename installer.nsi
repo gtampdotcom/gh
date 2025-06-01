@@ -18,7 +18,7 @@ FunctionEnd
 !define PRODUCT_STARTMENU_REGVAL "NSIS:StartMenuDir"
 ;ShowInstDetails show
 ;ShowUnInstDetails show
-SetCompressor lzma
+SetCompressor /SOLID lzma
 
 ; MUI 1.67 compatible ------
 !include "MUI.nsh"
@@ -77,8 +77,15 @@ Section "GTA2GH v1.5992" SEC01
   SetOverwrite ifDiff
   File "gta2gh.exe"
   File "7za.exe"
+  SetOutPath "$INSTDIR\sounds"
+  File "sounds\hosted.wav"
+  File "sounds\join.wav"
+  File "sounds\location1.wav"
+  File "sounds\location2.wav"
+  File "sounds\privmsg.wav"
+  File "sounds\wordalert.wav"  
   SetOutPath "$SYSDIR"
-  SetOverwrite ifDiff
+  SetOverwrite ifNewer
   File "mswinsck.ocx"
   File "richtx32.ocx"
   File "mscomctl.ocx"
@@ -130,6 +137,13 @@ Section Uninstall
   Delete "$INSTDIR\uninst.exe"
   Delete "$INSTDIR\gta2gh.exe"
   Delete "$INSTDIR\7za.exe"
+  Delete "$INSTDIR\sounds\hosted.wav"
+  Delete "$INSTDIR\sounds\join.wav"
+  Delete "$INSTDIR\sounds\location1.wav"
+  Delete "$INSTDIR\sounds\location2.wav"
+  Delete "$INSTDIR\sounds\privmsg.wav"
+  Delete "$INSTDIR\sounds\wordalert.wav"
+
  !insertmacro MUI_STARTMENU_GETFOLDER "Application" $ICONS_GROUP
   Delete "$SMPROGRAMS\$ICONS_GROUP\Uninstall.lnk"
   Delete "$DESKTOP\${PRODUCT_NAME}.lnk"

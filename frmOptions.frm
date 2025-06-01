@@ -28,7 +28,7 @@ Begin VB.Form frmOptions
       Height          =   2775
       Index           =   4
       Left            =   10560
-      TabIndex        =   49
+      TabIndex        =   50
       Top             =   4440
       Visible         =   0   'False
       Width           =   3375
@@ -36,7 +36,7 @@ Begin VB.Form frmOptions
          Caption         =   "Hid&e &menu"
          Height          =   255
          Left            =   0
-         TabIndex        =   60
+         TabIndex        =   61
          Top             =   1680
          Width           =   3015
       End
@@ -44,7 +44,7 @@ Begin VB.Form frmOptions
          Caption         =   "Pad names"
          Height          =   255
          Left            =   0
-         TabIndex        =   53
+         TabIndex        =   54
          Top             =   1290
          Width           =   2655
       End
@@ -52,7 +52,7 @@ Begin VB.Form frmOptions
          Caption         =   "Show game removal messages"
          Height          =   255
          Left            =   0
-         TabIndex        =   52
+         TabIndex        =   53
          Top             =   900
          Width           =   3015
       End
@@ -60,7 +60,7 @@ Begin VB.Form frmOptions
          Caption         =   "&URL colour"
          Height          =   300
          Left            =   0
-         TabIndex        =   59
+         TabIndex        =   60
          Top             =   2070
          Width           =   1215
       End
@@ -68,7 +68,7 @@ Begin VB.Form frmOptions
          Caption         =   "T&imestamp messages"
          Height          =   255
          Left            =   0
-         TabIndex        =   51
+         TabIndex        =   52
          Top             =   510
          Width           =   3015
       End
@@ -76,7 +76,7 @@ Begin VB.Form frmOptions
          Caption         =   "&Highlight alert words"
          Height          =   255
          Left            =   0
-         TabIndex        =   50
+         TabIndex        =   51
          Top             =   120
          Width           =   3015
       End
@@ -87,7 +87,7 @@ Begin VB.Form frmOptions
       Height          =   2175
       Index           =   3
       Left            =   4320
-      TabIndex        =   46
+      TabIndex        =   47
       Top             =   5040
       Visible         =   0   'False
       Width           =   5775
@@ -95,7 +95,7 @@ Begin VB.Form frmOptions
          Caption         =   "Sign &In automatically"
          Height          =   255
          Left            =   0
-         TabIndex        =   47
+         TabIndex        =   48
          Top             =   120
          Width           =   3015
       End
@@ -103,7 +103,7 @@ Begin VB.Form frmOptions
          Caption         =   "&Run on startup"
          Height          =   255
          Left            =   0
-         TabIndex        =   48
+         TabIndex        =   49
          Top             =   480
          Width           =   2895
       End
@@ -114,7 +114,7 @@ Begin VB.Form frmOptions
       Height          =   2415
       Index           =   2
       Left            =   120
-      TabIndex        =   41
+      TabIndex        =   42
       Top             =   5040
       Visible         =   0   'False
       Width           =   3855
@@ -122,7 +122,7 @@ Begin VB.Form frmOptions
          Caption         =   "M&inimize to tray"
          Height          =   255
          Left            =   0
-         TabIndex        =   45
+         TabIndex        =   46
          Top             =   1200
          Width           =   3255
       End
@@ -130,7 +130,7 @@ Begin VB.Form frmOptions
          Caption         =   "&Close to tray"
          Height          =   255
          Left            =   0
-         TabIndex        =   44
+         TabIndex        =   45
          Top             =   840
          Width           =   3255
       End
@@ -138,7 +138,7 @@ Begin VB.Form frmOptions
          Caption         =   "Sta&rt in tray"
          Height          =   255
          Left            =   0
-         TabIndex        =   43
+         TabIndex        =   44
          Top             =   480
          Width           =   3135
       End
@@ -146,7 +146,7 @@ Begin VB.Form frmOptions
          Caption         =   "A&lways in tray"
          Height          =   255
          Left            =   0
-         TabIndex        =   42
+         TabIndex        =   43
          Top             =   120
          Width           =   3255
       End
@@ -156,7 +156,7 @@ Begin VB.Form frmOptions
       Caption         =   "Cancel"
       Height          =   375
       Left            =   6360
-      TabIndex        =   58
+      TabIndex        =   59
       Top             =   4440
       Width           =   975
    End
@@ -165,7 +165,7 @@ Begin VB.Form frmOptions
       Default         =   -1  'True
       Height          =   375
       Left            =   5280
-      TabIndex        =   57
+      TabIndex        =   58
       Top             =   4440
       Width           =   975
    End
@@ -178,10 +178,10 @@ Begin VB.Form frmOptions
       Top             =   480
       Width           =   7095
       Begin VB.CheckBox chkHide 
-         Caption         =   "Hide IP and MAC address (streamer mode)"
+         Caption         =   "Hide IP and MAC address from screen (beta, incomplete)"
          Height          =   195
          Left            =   0
-         TabIndex        =   62
+         TabIndex        =   63
          Top             =   2880
          Width           =   6975
       End
@@ -189,7 +189,7 @@ Begin VB.Form frmOptions
          Caption         =   "Force blank IP for VPN"
          Height          =   195
          Left            =   0
-         TabIndex        =   61
+         TabIndex        =   62
          Top             =   2520
          Width           =   6975
       End
@@ -197,14 +197,14 @@ Begin VB.Form frmOptions
          BorderStyle     =   0  'None
          Height          =   2415
          Left            =   0
-         TabIndex        =   29
+         TabIndex        =   30
          Top             =   120
          Width           =   7095
          Begin VB.CheckBox chkAutoDownload 
             Caption         =   "Automatically &download and install maps"
             Height          =   195
             Left            =   0
-            TabIndex        =   38
+            TabIndex        =   39
             Top             =   2040
             Width           =   6975
          End
@@ -212,14 +212,14 @@ Begin VB.Form frmOptions
             Caption         =   "&Show"
             Height          =   315
             Left            =   6240
-            TabIndex        =   33
+            TabIndex        =   34
             Top             =   1080
             Width           =   855
          End
          Begin VB.TextBox txtGTA2folder 
             Height          =   285
             Left            =   1320
-            TabIndex        =   35
+            TabIndex        =   36
             Top             =   1560
             Width           =   5175
          End
@@ -236,14 +236,14 @@ Begin VB.Form frmOptions
             EndProperty
             Height          =   315
             Left            =   6600
-            TabIndex        =   37
+            TabIndex        =   38
             Top             =   1560
             Width           =   375
          End
          Begin VB.TextBox txtGTA2name 
             Height          =   285
             Left            =   1320
-            TabIndex        =   30
+            TabIndex        =   31
             Top             =   120
             Width           =   5655
          End
@@ -252,14 +252,14 @@ Begin VB.Form frmOptions
             IMEMode         =   3  'DISABLE
             Left            =   1320
             PasswordChar    =   "*"
-            TabIndex        =   32
+            TabIndex        =   33
             Top             =   1080
             Width           =   4695
          End
          Begin VB.TextBox txtPreferedUsername 
             Height          =   285
             Left            =   1320
-            TabIndex        =   31
+            TabIndex        =   32
             Top             =   600
             Width           =   5655
          End
@@ -267,7 +267,7 @@ Begin VB.Form frmOptions
             Caption         =   "&GTA2 name:"
             Height          =   375
             Left            =   0
-            TabIndex        =   40
+            TabIndex        =   41
             Top             =   120
             Width           =   1215
          End
@@ -275,7 +275,7 @@ Begin VB.Form frmOptions
             Caption         =   "GTA2 &folder:"
             Height          =   255
             Left            =   0
-            TabIndex        =   39
+            TabIndex        =   40
             Top             =   1560
             Width           =   1215
          End
@@ -283,7 +283,7 @@ Begin VB.Form frmOptions
             Caption         =   "&Password:"
             Height          =   255
             Left            =   0
-            TabIndex        =   36
+            TabIndex        =   37
             Top             =   1080
             Width           =   1215
          End
@@ -291,7 +291,7 @@ Begin VB.Form frmOptions
             Caption         =   "&IRC name:"
             Height          =   255
             Left            =   0
-            TabIndex        =   34
+            TabIndex        =   35
             Top             =   600
             Width           =   1215
          End
@@ -299,18 +299,26 @@ Begin VB.Form frmOptions
    End
    Begin VB.Frame frameArray 
       BorderStyle     =   0  'None
-      Height          =   3375
+      Height          =   4215
       Index           =   1
       Left            =   7800
-      TabIndex        =   27
+      TabIndex        =   28
       ToolTipText     =   "Seperate alert words by spaces. Case insensitive."
-      Top             =   480
+      Top             =   120
       Visible         =   0   'False
       Width           =   6975
+      Begin VB.CommandButton cmdSoundDefault 
+         Caption         =   "Reset sounds to default"
+         Height          =   375
+         Left            =   0
+         TabIndex        =   27
+         Top             =   3360
+         Width           =   2535
+      End
       Begin VB.CheckBox chkSoundHosted 
          Height          =   255
          Left            =   5760
-         TabIndex        =   56
+         TabIndex        =   57
          Top             =   2880
          Width           =   255
       End
@@ -546,7 +554,7 @@ Begin VB.Form frmOptions
          Caption         =   "Anyone &hosts a game:"
          Height          =   255
          Left            =   0
-         TabIndex        =   55
+         TabIndex        =   56
          Top             =   2880
          Width           =   5655
       End
@@ -554,7 +562,7 @@ Begin VB.Form frmOptions
          Caption         =   "Sound"
          Height          =   255
          Left            =   5640
-         TabIndex        =   54
+         TabIndex        =   55
          Top             =   120
          Width           =   1215
       End
@@ -603,7 +611,7 @@ Begin VB.Form frmOptions
    Begin MSComctlLib.TabStrip tabSettings 
       Height          =   4800
       Left            =   0
-      TabIndex        =   28
+      TabIndex        =   29
       TabStop         =   0   'False
       Top             =   120
       Width           =   7575
@@ -669,6 +677,15 @@ Private Sub chkShow_Click()
     Else
         txtIRCPassword.PasswordChar = "*"
     End If
+End Sub
+
+Private Sub cmdSoundDefault_Click()
+    strSoundLocation1 = App.Path & "\sounds\" & "location1.wav"
+    strSoundLocation2 = App.Path & "\sounds\" & "location2.wav"
+    strSoundWordAlert = App.Path & "\sounds\" & "wordalert.wav"
+    strSoundPrivmsg = App.Path & "\sounds\" & "privmsg.wav"
+    strSoundJoin = App.Path & "\sounds\" & "join.wav"
+    strSoundHosted = App.Path & "\sounds\" & "hosted.wav"
 End Sub
 
 Private Sub cmdURL_Click()
@@ -1203,10 +1220,13 @@ With cr
     
     .ValueKey = "SoundLocation1"
     strSoundLocation1 = .Value
+    If strSoundLocation1 = vbNullString Then strSoundLocation1 = App.Path & "\sounds\" & "location1.wav"
     .ValueKey = "SoundLocation2"
     strSoundLocation2 = .Value
+    If strSoundLocation2 = vbNullString Then strSoundLocation2 = App.Path & "\sounds\" & "location2.wav"
     .ValueKey = "SoundWordAlert"
     strSoundWordAlert = .Value
+    If strSoundWordAlert = vbNullString Then strSoundWordAlert = App.Path & "\sounds\" & "wordalert.wav"
     
     .ValueKey = "txtWordAlert"
     If .Value = vbNullString Then
@@ -1217,10 +1237,13 @@ With cr
     
     .ValueKey = "SoundPrivmsg"
     strSoundPrivmsg = .Value
+    If strSoundPrivmsg = vbNullString Then strSoundPrivmsg = App.Path & "\sounds\" & "privmsg.wav"
     .ValueKey = "SoundJoin"
     strSoundJoin = .Value
+    If strSoundJoin = vbNullString Then strSoundJoin = App.Path & "\sounds\" & "join.wav"
     .ValueKey = "SoundHosted"
     strSoundHosted = .Value
+    If strSoundHosted = vbNullString Then strSoundHosted = App.Path & "\sounds\" & "hosted.wav"
     
     'Try to find GTA2 folder:
     Call setGTA2path

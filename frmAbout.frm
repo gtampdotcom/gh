@@ -36,7 +36,6 @@ Begin VB.Form frmAbout
       _ExtentY        =   6165
       _Version        =   393217
       BorderStyle     =   0
-      Enabled         =   -1  'True
       ReadOnly        =   -1  'True
       ScrollBars      =   2
       Appearance      =   0
@@ -81,7 +80,7 @@ Public Sub about()
     strRespect = Array("[Code and design:", "Sektor", _
     " ", "[Donators:", "DAFE", "Kernel", "Wario5", "TommySprat", "DrSlony", "FrankCrank", "CubanPete", "Heri", _
     " ", "[Support:", "VERY-LAG-DUDE (discord)", "BenMillard (code)", "Elypter (code)", "Gustavob (testing)", "Razor (testing)", "Kamil (testing)", "irc.gtanet.com", _
-    " ", "[Graphics:", "CubanPete", "famfamfam.com", "DMA Design", _
+    " ", "[Graphics:", "CubanPete", "famfamfam", "DMA Design", _
     " ", "[Disclaimer:", "The integrity of this product cannot be guaranteed for high voltage operation. The Zaibatsu Corporation reserves the right to change the specifications without notice. Conditions apply.")
     For i = 0 To UBound(strRespect)
         'Add strMsg to rtbHistory and apply color

@@ -1,14 +1,14 @@
 VERSION 5.00
-Object = "{248DD890-BB45-11CF-9ABC-0080C7E7B78D}#1.0#0"; "MSWINSCK.OCX"
+Object = "{248DD890-BB45-11CF-9ABC-0080C7E7B78D}#1.0#0"; "mswinsck.ocx"
 Object = "{3B7C8863-D78F-101B-B9B5-04021C009402}#1.2#0"; "richtx32.ocx"
 Object = "{831FDD16-0C5C-11D2-A9FC-0000F8754DA1}#2.0#0"; "mscomctl.ocx"
 Begin VB.Form frmGH 
    AutoRedraw      =   -1  'True
    Caption         =   "GH"
-   ClientHeight    =   5250
+   ClientHeight    =   5055
    ClientLeft      =   165
    ClientTop       =   750
-   ClientWidth     =   11070
+   ClientWidth     =   10650
    DrawStyle       =   5  'Transparent
    FillColor       =   &H80000012&
    BeginProperty Font 
@@ -24,8 +24,8 @@ Begin VB.Form frmGH
    KeyPreview      =   -1  'True
    LinkTopic       =   "Form1"
    Picture         =   "frmGH.frx":37C2
-   ScaleHeight     =   5250
-   ScaleWidth      =   11070
+   ScaleHeight     =   5055
+   ScaleWidth      =   10650
    Visible         =   0   'False
    Begin VB.Timer timStamp 
       Enabled         =   0   'False
@@ -1640,10 +1640,6 @@ Begin VB.Form frmGH
       Begin VB.Menu mnuToolsIgnoreList 
          Caption         =   "&Ignore list..."
       End
-      Begin VB.Menu mnuToolsUnPnP 
-         Caption         =   "UnPnP"
-         Visible         =   0   'False
-      End
    End
    Begin VB.Menu mnuHelp 
       Caption         =   "&Help"
@@ -2015,6 +2011,21 @@ End If
 'displaychat strChannel, strGHColor, "Latest GH version: " & CopyURLToRAM("http://gtamp.com/version.txt")
 'strServer(0) = "127.0.0.1"
 
+'ShellExecute hwnd, "runas", "sc stop upnphost", "", App.Path, vbNormalFocus
+'ShellExecute hwnd, "runas", "sc config upnphost start= disabled", "", App.Path, vbNormalFocus
+
+Dim strSystem As String, lngRet As Long
+strSystem = Space(255)
+lngRet = GetSystemDirectory(strSystem, 255)
+strSystem = Left$(strSystem, lngRet)
+
+displaychat strChannel, strTextColor, "Trying to close upnphost: " & GetCommandOutput(strSystem & "\sc stop upnphost", True, False, True)
+displaychat strChannel, strTextColor, "Trying to disable upnphost startup: " & GetCommandOutput(strSystem & "\sc config upnphost start= disabled", True, False, True)
+
+displaychat strChannel, strTextColor, "Trying to close SSDPSRV: " & GetCommandOutput(strSystem & "\sc stop SSDPSRV", True, False, True)
+displaychat strChannel, strTextColor, "Trying to disable SSDPSRV startup: " & GetCommandOutput(strSystem & "\sc config SSDPSRV start= disabled", True, False, True)
+
+
 With cr
     .ClassKey = HKEY_CURRENT_USER
     .SectionKey = "SOFTWARE\GTA2 Game Hunter"
@@ -2346,10 +2357,12 @@ Private Sub cmdExit_Click()
         .ValueType = REG_DWORD
         .Value = 0
         
+        .ValueKey = "skip_frontend"
+        .DeleteValue
+        
         .ValueKey = "skip_mission"
         If .Value <> vbNullString Then .DeleteValue
-'440           .ValueKey = "skip_frontend"
-'450           If .Value <> vbNullString Then .DeleteValue
+
         .ValueKey = "play_replay"
         If .Value <> vbNullString Then .DeleteValue
         
@@ -2760,6 +2773,41 @@ End Sub
 
 Private Sub mnuToolsIgnoreList_Click()
     Call ShellExecute(Me.hwnd, "Open", DOCUMENTS & "\gta2gh_ignore_list.txt", vbNullString, DOCUMENTS & "\gta2gh_ignore_list.txt", vbNormalFocus)
+End Sub
+
+Private Sub mnuToolsUPnP_Click()
+    On Error GoTo oops
+    'mnuToolsUPnP.Checked = Not mnuToolsUPnP.Checked
+    With cr
+        'HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\SSDPSRV
+       .ClassKey = HKEY_CURRENT_USER
+       .SectionKey = "SYSTEM\CurrentControlSet\Services\SSDPSRV"
+       .ValueKey = "Start"
+       .ValueType = REG_DWORD
+       'If mnuToolsUPnP.Checked = True Then
+            .Value = 4 'disabled
+       'Else
+       '     .Value = 3 'enabled
+       'End If
+       
+       .SectionKey = "SYSTEM\CurrentControlSet\Services\upnphost"
+       .ValueKey = "Start"
+       .ValueType = REG_DWORD
+       'If mnuToolsUPnP.Checked = True Then
+            .Value = 4 'disabled
+       'Else
+       '     .Value = 3 'enabled
+       'End If
+    End With
+    
+    'run as admin
+    'sc stop "upnphost"
+    'sc config "upnphost" start= disabled
+Exit Sub
+
+oops:
+    Call ErrorHandler("mnuToolsUPnP", Err.Description, Erl)
+    
 End Sub
 
 Private Sub mnuViewGridlines_Click()
@@ -4538,24 +4586,50 @@ Private Sub timStatus_Timer()
     Dim i As Integer
     Dim blnSpecialDay As Boolean
       
-    If Month(Now) = 12 And Day(Now) = 25 Then
-        If frmGH.Icon <> picSanta.Picture Then frmGH.Icon = picSanta.Picture
+    
+    'April Fool's day
+    If Month(Now) = 4 And Day(Now) = 1 Then
+        If frmGH.Icon <> picJoke.Picture Then frmGH.Icon = picJoke.Picture
+        If blnAprilFools = False Then
+            blnAprilFools = True
+            frmGH.Caption = "Game Hunter v" & Int((Rnd * 99) + 1) & "." & Int((Rnd * 99999) + 1)
+        End If
         blnSpecialDay = True
     End If
     
-    If Month(Now) = 4 And Day(Now) = 1 Then
-        If frmGH.Icon <> picJoke.Picture Then frmGH.Icon = picJoke.Picture
+    'GH 1.0 2005-01-24
+    If Month(Now) = 1 And Day(Now) = 24 Then
+        frmGH.Caption = "Game Hunter v" & TXT_GHVER & " - GH is " & Year(Now) - 2005 & " years old and you're still using it!"
+        If frmGH.Icon <> frmAbout.cmdOK.MouseIcon Then frmGH.Icon = frmAbout.cmdOK.MouseIcon
+        blnSpecialDay = True
+    End If
+    
+    'Sektor's birthday 1979-07-18
+    If Month(Now) = 7 And Day(Now) = 18 Then
+        frmGH.Caption = "Game Hunter v" & TXT_GHVER & " - Sektor was created " & Year(Now) - 1979 & " years ago!"
+        If frmGH.Icon <> frmAbout.cmdOK.MouseIcon Then frmGH.Icon = frmAbout.cmdOK.MouseIcon
         blnSpecialDay = True
     End If
     
     'GTA2 release anniversary 1999-10-22
     If Month(Now) = 10 And Day(Now) = 22 Then
-        If frmGH.Icon <> picHead.Picture Then frmGH.Icon = picHead.Picture
+        frmGH.Caption = "Game Hunter v" & TXT_GHVER & " - GTA2 is " & Year(Now) - 1999 & " years old!"
+        'If frmGH.Icon <> picHead.Picture Then frmGH.Icon = picHead.Picture
+        If frmGH.Icon <> frmAbout.cmdOK.MouseIcon Then frmGH.Icon = frmAbout.cmdOK.MouseIcon
         blnSpecialDay = True
     End If
     
+    'Happy Halloween
     If Month(Now) = 10 And Day(Now) = 31 Then
+        frmGH.Caption = "Game Hunter v" & TXT_GHVER & " - Happy Halloween!"
         If frmGH.Icon <> picHalloween.Picture Then frmGH.Icon = picHalloween.Picture
+        blnSpecialDay = True
+    End If
+    
+    'Happy Holidays
+    If Month(Now) = 12 And Day(Now) = 25 Then
+        If frmGH.Icon <> picSanta.Picture Then frmGH.Icon = picSanta.Picture
+        frmGH.Caption = "Game Hunter v" & TXT_GHVER & " - Happy Holidays!"
         blnSpecialDay = True
     End If
     
@@ -5784,7 +5858,9 @@ Private Sub cmdGTA2Manager_Click()
     If Exists(strGTA2path & "gta2manager.exe") = True Then
         Call FindProcess("gta2manager.exe", True) 'Find and kill process
         displaychat strDestTab, 32896, "Launching GTA2 Manager"
-        Call shellandwait(vbQuote & strGTA2path & "gta2manager.exe" & vbQuote, strGTA2path)
+        'Call shellandwait(vbQuote & strGTA2path & "gta2manager.exe" & vbQuote, strGTA2path)
+        'lngPID = shellandwait(strGTA2path & "gta2manager.exe", strGTA2path)
+        ShellExecute hwnd, "runas", "gta2manager.exe", "", strGTA2path, vbNormalFocus
     Else
         displaychat strDestTab, vbRed, "Can't find " & strGTA2path & "gta2manager.exe"
     End If
@@ -6191,15 +6267,6 @@ With cr
     .Value = strChannels
 End With
                 
-End Sub
-
-Private Sub unpnp_Click()
-    Dim strUnPnPpath As String
-    strUnPnPpath = "extras\unpnp.exe"
-    'Call CopyURLToFile("http://www.grc.com/files/unpnp.exe", strGTA2path & strUnPnPpath)
-    If Exists(strGTA2path & strUnPnPpath) = True Then 'doesnt wait for download to finish yet
-        Call shellandwait(vbQuote & strGTA2path & strUnPnPpath & vbQuote, strUnPnPpath)
-    End If
 End Sub
 
 Private Sub findReplace()

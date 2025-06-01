@@ -309,7 +309,9 @@ ErrorHandler:
             frmDownload.Caption = frmDownload.Caption & " " & strString
             If lngMaster <> 1 Then SendMessage lngMaster, WM_SETTEXT, 0, ByVal strString
         Else
-            strString = Replace(Replace(Replace(Replace(Replace(Replace(GetCommandOutput(App.Path & "\7za.exe x -y -o" & vbQuote & strGTA2path & "data\" & vbQuote & " " & vbQuote & GetTmpPath & "gta2map.7z" & vbQuote, True, False, True), "7-Zip (A) 9.20  Copyright (c) 1999-2010 Igor Pavlov  2010-11-18", vbNullString), vbNewLine, " "), "   ", vbNullString), "Extracting ", vbNullString), "  ", " "), "  ", " ")
+            'GetCommandOutput(App.Path & "\mydown.exe -x http://127.0.0.1/gta2.7z", , True)
+            strString = GetCommandOutput(App.Path & "\7za.exe x -y -o" & vbQuote & strGTA2path & "data\" & vbQuote & " " & vbQuote & GetTmpPath & "gta2map.7z" & vbQuote, True, False, True)
+            'strString = Replace(Replace(Replace(Replace(Replace(Replace(GetCommandOutput(App.Path & "\7za.exe x -y -o" & vbQuote & strGTA2path & "data\" & vbQuote & " " & vbQuote & GetTmpPath & "gta2map.7z" & vbQuote, True, False, True), "7-Zip (A) 9.20  Copyright (c) 1999-2010 Igor Pavlov  2010-11-18", vbNullString), vbNewLine, " "), "   ", vbNullString), "Extracting ", vbNullString), "  ", " "), "  ", " ")
             If lngMaster <> 1 Then
                 SendMessage lngMaster, WM_SETTEXT, 0, ByVal strString
             Else

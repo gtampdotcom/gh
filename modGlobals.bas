@@ -9,6 +9,8 @@ Attribute VB_Name = "modGlobalsOMG"
 
 Option Explicit
 
+Public Declare Function GetSystemDirectory Lib "Kernel32" Alias "GetSystemDirectoryA" (ByVal lpBuffer As String, ByVal nSize As Long) As Long
+
 Public Declare Function GetTickCount Lib "Kernel32" () As Long
 Public Declare Function ShellExecute Lib "shell32" Alias "ShellExecuteA" ( _
 ByVal hwnd As Long, _
@@ -22,11 +24,13 @@ Public Const vbQuote = """"
 Public Const TXT_COUNTRY_DETECTION_FAILED = "Country detection failed"
 Public Const TXT_GEOSITE = "http://ip2c.org/s"
 Public Const TXT_GTA2EXE = "gta2.exe"       'name of GTA2 executable
-Public Const TXT_GHVER = "1.5992"            'GTA2 Game Hunter version number
+Public Const TXT_GHVER = "1.5993"            'GTA2 Game Hunter version number
 Public Const TXT_YOUR_GAME_REMOVED = "Your game was removed from the list."
 Public Const TXT_PRIVATE = "Private chat with "
 Public Const gta2ghbot = "gta2ghbot"
 Public Const MAX_PATH = 260
+
+Public blnAprilFools As Boolean
 
 Public strOSV As String 'Operating system version
 'Public strPlayerColors(255, 1) As String
