@@ -10,7 +10,7 @@ FunctionEnd
 
 ; HM NIS Edit Wizard helper defines
 !define PRODUCT_NAME "GTA2 Game Hunter"
-!define PRODUCT_VERSION "1.5992"
+!define PRODUCT_VERSION "1.5993"
 !define PRODUCT_WEB_SITE "http://GTAMP.com"
 !define PRODUCT_DIR_REGKEY "Software\Microsoft\Windows\CurrentVersion\App Paths\gta2gh.exe"
 !define PRODUCT_UNINST_KEY "Software\Microsoft\Windows\CurrentVersion\Uninstall\${PRODUCT_NAME}"
@@ -72,7 +72,7 @@ InstallDirRegKey HKLM "${PRODUCT_DIR_REGKEY}" ""
 ;ShowInstDetails show
 ;ShowUnInstDetails show
 
-Section "GTA2GH v1.5992" SEC01
+Section "GTA2GH v1.5993" SEC01
   SetOutPath "$INSTDIR"
   SetOverwrite ifDiff
   File "gta2gh.exe"

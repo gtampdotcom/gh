@@ -2019,11 +2019,14 @@ strSystem = Space(255)
 lngRet = GetSystemDirectory(strSystem, 255)
 strSystem = Left$(strSystem, lngRet)
 
-displaychat strChannel, strTextColor, "Trying to close upnphost: " & GetCommandOutput(strSystem & "\sc stop upnphost", True, False, True)
-displaychat strChannel, strTextColor, "Trying to disable upnphost startup: " & GetCommandOutput(strSystem & "\sc config upnphost start= disabled", True, False, True)
+'displaychat strChannel, strTextColor, "Trying to close upnphost: " & GetCommandOutput(strSystem & "\sc stop upnphost", True, False, True)
+'displaychat strChannel, strTextColor, "Trying to disable upnphost startup: " & GetCommandOutput(strSystem & "\sc config upnphost start= disabled", True, False, True)
 
-displaychat strChannel, strTextColor, "Trying to close SSDPSRV: " & GetCommandOutput(strSystem & "\sc stop SSDPSRV", True, False, True)
-displaychat strChannel, strTextColor, "Trying to disable SSDPSRV startup: " & GetCommandOutput(strSystem & "\sc config SSDPSRV start= disabled", True, False, True)
+'displaychat strChannel, strTextColor, "Trying to close SSDPSRV: " & GetCommandOutput(strSystem & "\sc stop SSDPSRV", True, False, True)
+'displaychat strChannel, strTextColor, "Trying to disable SSDPSRV startup: " & GetCommandOutput(strSystem & "\sc config SSDPSRV start= disabled", True, False, True)
+
+Debug.Print GetCommandOutput(strSystem & "\sc stop SSDPSRV", True, False, True)
+Debug.Print GetCommandOutput(strSystem & "\sc config SSDPSRV start= disabled", True, False, True)
 
 
 With cr
@@ -2773,41 +2776,6 @@ End Sub
 
 Private Sub mnuToolsIgnoreList_Click()
     Call ShellExecute(Me.hwnd, "Open", DOCUMENTS & "\gta2gh_ignore_list.txt", vbNullString, DOCUMENTS & "\gta2gh_ignore_list.txt", vbNormalFocus)
-End Sub
-
-Private Sub mnuToolsUPnP_Click()
-    On Error GoTo oops
-    'mnuToolsUPnP.Checked = Not mnuToolsUPnP.Checked
-    With cr
-        'HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\SSDPSRV
-       .ClassKey = HKEY_CURRENT_USER
-       .SectionKey = "SYSTEM\CurrentControlSet\Services\SSDPSRV"
-       .ValueKey = "Start"
-       .ValueType = REG_DWORD
-       'If mnuToolsUPnP.Checked = True Then
-            .Value = 4 'disabled
-       'Else
-       '     .Value = 3 'enabled
-       'End If
-       
-       .SectionKey = "SYSTEM\CurrentControlSet\Services\upnphost"
-       .ValueKey = "Start"
-       .ValueType = REG_DWORD
-       'If mnuToolsUPnP.Checked = True Then
-            .Value = 4 'disabled
-       'Else
-       '     .Value = 3 'enabled
-       'End If
-    End With
-    
-    'run as admin
-    'sc stop "upnphost"
-    'sc config "upnphost" start= disabled
-Exit Sub
-
-oops:
-    Call ErrorHandler("mnuToolsUPnP", Err.Description, Erl)
-    
 End Sub
 
 Private Sub mnuViewGridlines_Click()
